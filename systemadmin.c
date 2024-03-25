@@ -198,6 +198,8 @@ const char* userTypeToString(UserType type) {
             return "System Admin";
         case LECTURER:
             return "Lecturer";
+        case PROGRAMME_ADMIN:
+            return "Programme Admin";
         default:
             return "Unknown";
     }

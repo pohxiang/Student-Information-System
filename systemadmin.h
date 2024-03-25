@@ -14,7 +14,8 @@
 typedef enum {
     STUDENT,
     SYSTEM_ADMIN,
-    LECTURER
+    LECTURER,
+    PROGRAMME_ADMIN
 } UserType;
 
 // Structure to hold user data

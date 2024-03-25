@@ -185,7 +185,7 @@ void viewselfresult(int id){
                 printf("| Module 5       : %-28s|\n", studentLect.courseM[4]);
                 printf("| Marks          : %-28.2f|\n", studentLect.marks[4]);
                 printf("| Overall CGPA   : %-28.2f|\n", studentLect.cgpa);
-                printf("+---------------------------------ddd-------------+\n");
+                printf("+----------------------------------------------+\n");
 
                 printf("Do you want to return to previous menu? (y/n): ");
                 char choice;
