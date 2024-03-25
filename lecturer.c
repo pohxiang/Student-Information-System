@@ -263,6 +263,7 @@ void updateMarks(const char* filename, struct StudentLect students[], int studen
     int studentID;
     char whichcourse[20];
     float newmark;
+    char line[200];
 
     while (1)
     {
@@ -301,20 +302,16 @@ void updateMarks(const char* filename, struct StudentLect students[], int studen
 
         
 
-        for (int j = 0; j < Num_courses; j++)
+        for (int i = 0; i < Num_courses; i++)
         {
-            if (strcmp(students[findStudent].courseM[j], whichcourse) == 0)
+            if (strcmp(students[findStudent].courseM[i], whichcourse) == 0)
             {
-                printf("Enter the new marks for %s: ", whichcourse);
-                while (scanf("%f", &newmark) != 1 || newmark < 0 || newmark > 100)
-                {
-                    printf("Invalid input. Please enter valid mark: \n");
-                    while (getchar() != '\n');
-                }
+                printf("Enter the new mark: ");
+                scanf("%f", &newmark);
 
-                students[findStudent].marks[j] = newmark;
+                students[findStudent].marks[i] = newmark;
                 updated = 1;
-                printf("Student mark updated successfully.\n");
+                printf("Marks updated successfully.\n");
                 break;
             }
         }

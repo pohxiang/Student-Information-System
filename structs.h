@@ -48,7 +48,6 @@ struct StudentLect
     int totalClass;
     char courseM[Num_courses][20];
     float marks[Num_courses];
-    float cgpa;
 };
 
 

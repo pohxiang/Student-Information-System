@@ -170,7 +170,7 @@ void viewselfresult(int id){
 
     while (fscanf(studentfile, "%d%s%s%s%s", &studentprofile.studentid, studentprofile.name, studentprofile.intakecode, studentprofile.contactnumber, studentprofile.email) != EOF) {
         if (id == studentprofile.studentid) {
-            while (fscanf(coursemarkfile, "%d %s %s %s %s %s %s %f %f %f %f %f %f", &studentLect.id,studentLect.name,studentLect.courseM[0], studentLect.courseM[1], studentLect.courseM[2],studentLect.courseM[3],studentLect.courseM[4], &studentLect.marks[0], &studentLect.marks[1],&studentLect.marks[2], &studentLect.marks[3], &studentLect.marks[4], &studentLect.cgpa) == 13){
+            while (fscanf(coursemarkfile, "%d %s %s %s %s %s %s %f %f %f %f %f ", &studentLect.id,studentLect.name,studentLect.courseM[0], studentLect.courseM[1], studentLect.courseM[2],studentLect.courseM[3],studentLect.courseM[4], &studentLect.marks[0], &studentLect.marks[1],&studentLect.marks[2], &studentLect.marks[3], &studentLect.marks[4]) == 12){
                 printf("\n+----------------------------------------------+\n");
                 printf("|               Results                        |");
                 printf("\n+----------------------------------------------+\n");
@@ -184,7 +184,7 @@ void viewselfresult(int id){
                 printf("| Marks          : %-28.2f|\n", studentLect.marks[3]);
                 printf("| Module 5       : %-28s|\n", studentLect.courseM[4]);
                 printf("| Marks          : %-28.2f|\n", studentLect.marks[4]);
-                printf("| Overall CGPA   : %-28.2f|\n", studentLect.cgpa);
+                //printf("| Overall CGPA   : %-28.2f|\n", studentLect.cgpa);
                 printf("+----------------------------------------------+\n");
 
                 printf("Do you want to return to previous menu? (y/n): ");
