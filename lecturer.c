@@ -262,9 +262,6 @@ void updateMarks(const char* filename, struct StudentLect students[], int studen
     int studentID;
     char whichcourse[20];
     float newmark;
-
-    
-
     while (1)
     {
         printf("Enter the ID of the student to update (enter -1 to stop): ");
