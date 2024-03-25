@@ -252,7 +252,6 @@ void storeGradeDefinition(int gradeDef[100], int size) {
 }
 
 
-
 // Read student marks from file
 
 void readStudentMarksFile(const char* filename, Student students[], int *studentCount) {
