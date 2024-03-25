@@ -1,6 +1,7 @@
 #include "lecturer.h"
 #include "main.h"
 
+
 void readAttendance(struct StudentLect students[], int *studentCount)
 {
     FILE *file = fopen(FILENAME_ATTENDANCE, "r");
@@ -253,9 +254,7 @@ void readMarks(const char* filename, struct StudentLect students[], int *student
             printf("Students Maxed. Please dont add more niggers, no space in cafeteria!!!\n");
             break;
         }
-    }
-
-    
+    }   
 }
 
 void updateMarks(const char* filename, struct StudentLect students[], int studentCount)
@@ -263,16 +262,16 @@ void updateMarks(const char* filename, struct StudentLect students[], int studen
     int studentID;
     char whichcourse[20];
     float newmark;
-    char line[200];
+
+    
 
     while (1)
     {
-        int updated = 0;
         printf("Enter the ID of the student to update (enter -1 to stop): ");
         if (scanf("%d", &studentID) != 1)
         {
             while (getchar() != '\n');
-            printf("Invalid input.\n");
+            printf("Invalid input. Please try again.\n");
             continue;
         }
 
@@ -293,25 +292,29 @@ void updateMarks(const char* filename, struct StudentLect students[], int studen
 
         if (findStudent == -1)
         {
-            printf("Student not found. Enter valid studentID.\n");
+            printf("Student not found. Enter a valid student ID.\n");
             continue;
         }
 
         printf("Enter the course to update: ");
         scanf("%s", whichcourse);
 
-        
+        int updated = 0;
 
-        for (int i = 0; i < Num_courses; i++)
+        for (int j = 0; j < Num_courses; j++)
         {
-            if (strcmp(students[findStudent].courseM[i], whichcourse) == 0)
+            if (strcmp(students[findStudent].courseM[j], whichcourse) == 0)
             {
-                printf("Enter the new mark: ");
-                scanf("%f", &newmark);
+                printf("Enter the new marks for %s: ", whichcourse);
+                while (scanf("%f", &newmark) != 1 || newmark < 0 || newmark > 100)
+                {
+                    printf("Invalid input. Please enter a valid mark: \n");
+                    while (getchar() != '\n');
+                }
 
-                students[findStudent].marks[i] = newmark;
+                students[findStudent].marks[j] = newmark;
                 updated = 1;
-                printf("Marks updated successfully.\n");
+                printf("Student mark updated successfully.\n");
                 break;
             }
         }
@@ -319,35 +322,31 @@ void updateMarks(const char* filename, struct StudentLect students[], int studen
         if (!updated)
         {
             printf("Student or course not found.\n");
-            continue;
         }
 
-        FILE *file = fopen(FILENAME_MARKS, "w"); 
+        FILE *file = fopen(filename, "w"); 
 
         if (file == NULL)
         {
-            printf("Error opening file %s...\n", FILENAME_MARKS);
+            printf("Error opening file %s...\n", filename);
             return;
         }
 
         for (int i = 0; i < studentCount; i++)
         {
-            if (students[i].id == studentID)
+            fprintf(file, "%d %s", students[i].id, students[i].name);
+
+            for (int j = 0; j < Num_courses; j++)
             {
-                fprintf(file, "%d %s", students[i].id, students[i].name);
-
-                for (int j = 0; j < Num_courses; j++)
-                {
-                    fprintf(file, " %d", students[i].course[j]);
-                }
-
-                for (int j = 0; j < Num_courses; j++)
-                {
-                    fprintf(file, " %.2f", students[i].marks[j]);
-                }
-
-                fprintf(file, "\n");
+                fprintf(file, " %s", students[i].courseM[j]);
             }
+
+            for (int j = 0; j < Num_courses; j++)
+            {
+                fprintf(file, " %.2f", students[i].marks[j]);
+            }
+
+            fprintf(file, "\n");
         }
 
         fclose(file);
