@@ -1,2 +1,1 @@
-1 yeohpohxiang English Mathematics Chinese History Malay 79.00 69.00 55.00 75.00 69.00 3.20
-2 qingen English Mathematics Chinese History Malay 79.00 69.00 55.00 75.00 69.00 3.20
+1 yeohpohxiang English Mathematics Chinese History Malay 79.00 69.00 55.00 75.00 69.00
