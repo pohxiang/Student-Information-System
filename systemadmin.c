@@ -165,6 +165,7 @@ void printUsers(){
     displayMainMenu();
 }
 
+
 void searchForUser(){
     FILE *file = fopen("users.txt", "r");
     if (file == NULL) {printf("Error opening file\n");return;}
