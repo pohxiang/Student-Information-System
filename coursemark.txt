@@ -1,5 +1,1 @@
-1 yeohpohxiang      0.00 0.00 0.00 0.00 0.00
-1 yeohpohxiang      0.00 0.00 0.00 0.00 0.00
-5 qingen      0.00 0.00 0.00 0.00 0.00
-5 qingen      0.00 0.00 0.00 0.00 0.00
-1 yeohpohxiang 0.00 0.00 0.00 0.00 0.00 1.00 0.00 0.00 0.00 0.00
+1 yeohpohxiang English Mathematics Chinese History Malay 79.00 69.00 55.00 75.00 69.00
