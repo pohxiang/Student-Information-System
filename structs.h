@@ -44,9 +44,9 @@ struct StudentLect
     int id;
     char date[15];
     char course[20];
-    int attendance;
+    int attendance;  
     int totalClass;
-    char courseM[Num_courses][20];
+    char modules[Num_courses][20];
     float marks[Num_courses];
 };
 
@@ -67,5 +67,7 @@ struct AttendanceRecord {
         int attendance;
         int totalClass;
     };
+
+
 
 #endif
