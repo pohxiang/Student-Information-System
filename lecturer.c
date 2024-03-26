@@ -171,11 +171,11 @@ void calcAttendance(struct StudentLect students[], int studentCount)
  
 void readMarks(struct StudentLect students[], int *studentCount)
 {
-    FILE *file = fopen("coursemarks.txt", "r");
+    FILE *file = fopen("coursemark.txt", "r");
    
     if (file == NULL)
     {
-        printf("Error opening file %s...\n","coursemarks.txt");
+        printf("Error opening file %s...\n","coursemark.txt");
         return;
     }
  
@@ -206,11 +206,11 @@ void readMarks(struct StudentLect students[], int *studentCount)
  
 void checkMarks(struct StudentLect students[], int *studentCount)
 {
-    FILE *file = fopen("coursemarks.txt", "r");
+    FILE *file = fopen("coursemark.txt", "r");
  
     if (file == NULL)
     {
-        printf("Error opening file %s...\n","coursemarks.txt");
+        printf("Error opening file %s...\n","coursemark.txt");
         return;
     }
    
@@ -275,7 +275,7 @@ void updateMarks(struct StudentLect students[], int studentCount)
  
     while (1)
     {
-        FILE *file = fopen("coursemarks.txt", "r+");
+        FILE *file = fopen("coursemark.txt", "r+");
         FILE *tempFile = fopen("temp.txt", "w+");
  
         if (file == NULL || tempFile == NULL)
@@ -359,8 +359,8 @@ void updateMarks(struct StudentLect students[], int studentCount)
         fclose(file);
         fclose(tempFile);
  
-        remove("coursemarks.txt");
-        rename("temp.txt", "coursemarks.txt");
+        remove("coursemark.txt");
+        rename("temp.txt", "coursemark.txt");
  
         if (!found)
         {

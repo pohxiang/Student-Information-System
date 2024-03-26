@@ -147,8 +147,8 @@ void viewenrolledcoursestudent(int id){
             printf("Do you want to return to previous menu? (y/n): ");
             char choice;
             if (scanf(" %c", &choice) != 1) {printf("Invalid choice. Please try again.\n\n");}
-            else if (choice == 'y') {clearscreen();viewprofileStudent(id);}
-            else if (choice == 'n') {clearscreen();viewenrolledcoursestudent(id);}
+            else if (choice == 'y' ) {clearscreen();viewprofileStudent(id);}
+            else if (choice == 'n' ) {clearscreen();viewenrolledcoursestudent(id);}
         }
     }
 }
