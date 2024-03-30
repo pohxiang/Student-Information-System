@@ -43,22 +43,5 @@ typedef struct {
 } GradeScale;
 
 // Function prototypes
-void displayMainMenu();
-void addUser(User users[], int *size);
-void removeUser(User users[], int *size);
-void searchForUser();
-void uploadDataFile(User users[], int *size);
-void updateDataFile(User users[], int size);
-void printUsers();
-const char* userTypeToString(UserType type);
-void changeGradeDefinition();
-void storeGradeDefinition(int gradeDef[100], int size);
-void readStudentMarksFile(const char* filename, Student students[], int *studentCount);
-void calculate_student_performance(Student *student, int num_modules);
-void display_leaderboard(Student students[], int num_students);
-void studentgeneratereport();
-char calculate_grade(float marks);
-void searchAndPrintStudentByID(Student students[], int num_students, int searchID);
-bool searchStudentID(Student students[], int num_students, int targetID);
-float calculate_cgpa(float module_gpa[], int num_modules);
+
 #endif 
