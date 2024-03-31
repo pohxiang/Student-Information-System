@@ -50,11 +50,10 @@ void viewstudentprofile(){
       char choice;
       scanf(" %c", &choice);
       if (choice == 'y'){
-        break;
+        fclose(mainstudentfile);break;
       }
     }
   }
-
 }
 
 
@@ -66,8 +65,7 @@ void createcourse(){
   printf("Enter Module 3: ");scanf("%s", course.module3);
   printf("Enter Module 4: ");scanf("%s", course.module4);
   printf("Enter Module 5: ");scanf("%s", course.module5);
-  FILE *maincoursefile;
-  maincoursefile = fopen("course.txt", "a");
+  FILE *maincoursefile= fopen("course.txt", "a");
   fprintf(maincoursefile, "%s %s %s %s %s %s\n", course.intakeCode, course.module1, course.module2, course.module3, course.module4, course.module5);
   fclose(maincoursefile);
   printf("Course added successfully\n");
@@ -89,9 +87,13 @@ void updateCourse(){
       printf("Enter Module 4: ");scanf("%s", course.module4);
       printf("Enter Module 5: ");scanf("%s", course.module5);
       fprintf(tempcoursefile, "%s %s %s %s %s %s\n", course.intakeCode, course.module1, course.module2, course.module3, course.module4, course.module5);
+      fclose(maincoursefile);fclose(tempcoursefile);
+      remove(maincoursefile);rename ("temp.txt", "course.txt");
     }
     else{
       fprintf(tempcoursefile, "%s %s %s %s %s %s\n", course.intakeCode, course.module1, course.module2, course.module3, course.module4, course.module5);
+      fclose(maincoursefile);fclose(tempcoursefile);
+      remove(maincoursefile);rename ("temp.txt", "course.txt");
     }
   }
 
