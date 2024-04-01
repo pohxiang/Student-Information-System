@@ -59,6 +59,7 @@ bool filecheck(){
     else{is_exist = true;}
     if (gradedefinitionfile == NULL){printf("Grade Definition file not found\n"); printf("Creating new file\n"); gradedefinitionfile = fopen(fileGradeDefinition, "w");fclose(gradedefinitionfile);}
     else{is_exist = true;}
+    fclose(credfile);fclose(coursefile);fclose(studentfile);fclose(attendancefile);fclose(lecturerfile);fclose(coursemarkfile);fclose(gradedefinitionfile);
     return is_exist; 
 }
 
@@ -106,12 +107,13 @@ int login(){
                     viewprofileStudent(id);break;
                     case 1:
                     displayMainMenu();break;
-                    case 2:
+                    case 2:{
                     const char* filename = fileCourseMark;
                     struct StudentLect students[100];
                     int studentcount = 0;
                     int choice = 0;
                     printLecturerMenu(students,studentcount);break;
+                    }
                     case 3:
                     menuProgrammeAdmin();break;}
                 

@@ -180,6 +180,16 @@ void removeUser(User users[], int *size) {
     int ret;
     int ret2;
    
+    
+    if(remove("users.txt") != 0){
+        perror("Error removing file");
+        return;
+    }
+    if(rename("temp2.txt", "users.txt") != 0){
+        perror("Error renaming file");
+        return;
+    }
+    /*
     if (found) {
         ret2 = remove("users.txt");
         if (ret2 == 0) {
@@ -198,7 +208,7 @@ void removeUser(User users[], int *size) {
     } else {
         printf("User with ID %d not found.\n\n", idToRemove);
         remove("temp2.txt");
-    }
+    }*/
     displayMainMenu();
 }
 
