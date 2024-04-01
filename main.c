@@ -100,6 +100,7 @@ int login(){
                 clearscreen();
                 logindetails.type = atoi(storedtype);
                 int id = atoi(logindetails.username);
+                fclose(usercred);
                 switch(logindetails.type){
                     case 0:
                     viewprofileStudent(id);break;

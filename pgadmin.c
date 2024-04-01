@@ -56,20 +56,22 @@ void viewstudentprofile(){
   }
 }
 
-
+/* Need to change here */
 void createcourse(){
   struct Course course;
-  printf("Enter Intake Code: ");scanf("%s", course.intakeCode);
+  char inputintake[20];
+  FILE *maincoursefile= fopen("course.txt", "a");
   printf("Enter Module 1: ");scanf("%s", course.module1);
   printf("Enter Module 2: ");scanf("%s", course.module2);
   printf("Enter Module 3: ");scanf("%s", course.module3);
   printf("Enter Module 4: ");scanf("%s", course.module4);
   printf("Enter Module 5: ");scanf("%s", course.module5);
-  FILE *maincoursefile= fopen("course.txt", "a");
   fprintf(maincoursefile, "%s %s %s %s %s %s\n", course.intakeCode, course.module1, course.module2, course.module3, course.module4, course.module5);
   fclose(maincoursefile);
   printf("Course added successfully\n");
 }
+
+
 
 
 void updateCourse(){
@@ -101,8 +103,6 @@ void updateCourse(){
       rename ("temp.txt", "course.txt");
     }
   }
-
-
 }
 
 void viewCourse(){
@@ -161,7 +161,7 @@ void courseDelete(){
 }
 
 
-// Enrol Student to a intake code using course.txt and write it in studentfile.txt
+
 void enrolstudent(){
   int studentid;
   struct studentprofile student;
@@ -232,12 +232,12 @@ int courseMenu(){
       continue;}
     else{
       switch (choice){
-        case 1:createcourse();break;
-        case 2:updateCourse();break;
-        case 3:courseDelete();break;
-        case 4:viewCourse();break;
-        case 5:enrolstudent();return 0;
-        case 6:enrollecturer();return 0;
+        case 1:clearscreen();createcourse();break;
+        case 2:clearscreen();updateCourse();break;
+        case 3:clearscreen();courseDelete();break;
+        case 4:clearscreen();viewCourse();break;
+        case 5:clearscreen();enrolstudent();return 0;
+        case 6:clearscreen();enrollecturer();return 0;
         case 7:clearscreen();menuProgrammeAdmin();return 0;
       }
     }

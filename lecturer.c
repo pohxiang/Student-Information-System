@@ -1,6 +1,4 @@
-#include <stdio.h>
-#include <string.h>
-#include "structs.h"
+#include "lecturer.h"
 #define Max_students 100
 #define Num_courses 5
  
