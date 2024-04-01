@@ -87,9 +87,18 @@ void updateCourse(){
       printf("Enter Module 4: ");scanf("%s", course.module4);
       printf("Enter Module 5: ");scanf("%s", course.module5);
       fprintf(tempcoursefile, "%s %s %s %s %s %s\n", course.intakeCode, course.module1, course.module2, course.module3, course.module4, course.module5);
+      fclose(maincoursefile);
+      fclose (tempcoursefile);
+      remove("course.txt");
+      rename ("temp.txt", "course.txt");
+
     }
     else{
       fprintf(tempcoursefile, "%s %s %s %s %s %s\n", course.intakeCode, course.module1, course.module2, course.module3, course.module4, course.module5);
+      fclose(maincoursefile);
+      fclose(tempcoursefile);
+      remove("course.txt");
+      rename ("temp.txt", "course.txt");
     }
   }
 
@@ -98,24 +107,35 @@ void updateCourse(){
 
 void viewCourse(){
   struct Course course;
+  char intakecode[20];
   FILE *maincourse = fopen("course.txt", "r");
-  while (fscanf(maincourse, "%s %s %s %s %s %s\n", course.intakeCode, course.module1, course.module2, course.module3, course.module4, course.module5) != EOF){
-    printf("Intake Code: %s\n", course.intakeCode);
-    printf("Module 1: %s\n", course.module1);
-    printf("Module 2: %s\n", course.module2);
-    printf("Module 3: %s\n", course.module3);
-    printf("Module 4: %s\n", course.module4);
-    printf("Module 5: %s\n", course.module5);
-    printf("\n");
-    printf("Do you want to return to previous menu? (y/n): ");
-    char choice;
-    scanf(" %c", &choice);
-    if (choice == 'y'){
-      break;
+  
+  printf("Please enter the intake code to view: ");
+  scanf("%s", intakecode);
+  
+  while (fscanf(maincourse, "%s %s %s %s %s %s\n", course.intakeCode, course.module1, course.module2, course.module3, course.module4, course.module5 ) != EOF){
+    if (strcmp(intakecode, course.intakeCode) == 0){
+      printf("\n+=======================================+\n");
+      printf("|Intake Code: %-26s|", course.intakeCode);
+      printf("\n+=======================================+\n");
+      printf("|Module 1   : %-26s|\n", course.module1);
+      printf("|Module 2   : %-26s|\n", course.module2);
+      printf("|Module 3   : %-26s|\n", course.module3);
+      printf("|Module 4   : %-26s|\n", course.module4);
+      printf("|Module 5   : %-26s|", course.module5);
+      printf("\n========================================+\n");
+      printf("\n");
+      printf("Do you want to return to the previous menu? (y/n): ");
+      char choice;
+      scanf(" %c", &choice);
+      if (choice == 'y'){
+        fclose(maincourse);
+        break;
+      }
     }
   }
-  fclose(maincourse);
 }
+
 
 void courseDelete(){
   struct Course course;
