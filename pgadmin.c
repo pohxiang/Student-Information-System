@@ -87,13 +87,9 @@ void updateCourse(){
       printf("Enter Module 4: ");scanf("%s", course.module4);
       printf("Enter Module 5: ");scanf("%s", course.module5);
       fprintf(tempcoursefile, "%s %s %s %s %s %s\n", course.intakeCode, course.module1, course.module2, course.module3, course.module4, course.module5);
-      fclose(maincoursefile);fclose(tempcoursefile);
-      remove(maincoursefile);rename ("temp.txt", "course.txt");
     }
     else{
       fprintf(tempcoursefile, "%s %s %s %s %s %s\n", course.intakeCode, course.module1, course.module2, course.module3, course.module4, course.module5);
-      fclose(maincoursefile);fclose(tempcoursefile);
-      remove(maincoursefile);rename ("temp.txt", "course.txt");
     }
   }
 

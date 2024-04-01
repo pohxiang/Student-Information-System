@@ -103,37 +103,60 @@ void addUser(User users[], int *size) {
 
 
 void removeUser(User users[], int *size) {
-    if (*size > 0) {
-        int idToRemove;
-        printf("Enter ID of the User to remove: ");
-        scanf("%d", &idToRemove);
-        int found = 0;
-        for (int i = 0; i < *size; i++) {
-            if (users[i].id == idToRemove) {
-                for (int j = i; j < *size - 1; j++) {
-                    users[j] = users[j + 1];
-                }
-                (*size)--;
-                found = 1;
-                printf("User with ID %d removed successfully.\n\n", idToRemove);
-                updateDataFile(users, n);
-                if (users[i].type == 0) {
-                    removeStudentProfile(users[i].id);
-                } else if (users[i].type == 2) {
-                    removeLecturerProfile(users[i].id);
-                }
-                break;
-            }
+    int idToRemove;
+    printf("Enter ID of the User to remove: ");
+    scanf("%d", &idToRemove);
+ 
+    FILE *inputFile = fopen("users.txt", "r");
+    if (inputFile == NULL) {
+        printf("Error opening file users.txt\n");
+        return;
+    }
+ 
+    FILE *tempFile = fopen("temp2.txt", "w");
+    if (tempFile == NULL) {
+        printf("Error creating temporary file\n");
+        fclose(inputFile);
+        return;
+    }
+ 
+    User user;
+    int found = 0;
+ 
+    while (fscanf(inputFile, "%d %s %s %d", &user.id, user.name, user.password, (int*)&user.type) != EOF) {
+        if (user.id != idToRemove) {
+            fprintf(tempFile, "%d %s %s %d\n", user.id, user.name, user.password, (int)user.type);
+        } else {
+            found = 1;
         }
-        if (!found) {
-            printf("User with ID %d not found.\n\n", idToRemove);
+    }
+ 
+    fclose(inputFile);
+    fclose(tempFile);
+    int ret;
+    int ret2;
+   
+    if (found) {
+        ret2 = remove("users.txt");
+        if (ret2 == 0) {
+            printf("User with ID %d removed successfully.\n\n", idToRemove);
+        } else {
+            printf("Error: Unable to remove User with ID %d.\n\n", idToRemove);
         }
+ 
+        ret = rename("temp2.txt", "users.txt");
+        if (ret == 0) {
+            printf("User with ID %d removed successfully.\n\n", idToRemove);
+        } else {
+            printf("Error: Unable to remove User with ID %d.\n\n", idToRemove);
+        }
+        printf("User with ID %d removed successfully.\n\n", idToRemove);
     } else {
-        printf("No Users to remove.\n\n");
+        printf("User with ID %d not found.\n\n", idToRemove);
+        remove("temp2.txt");
     }
     displayMainMenu();
 }
-
 
 
 

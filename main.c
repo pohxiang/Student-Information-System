@@ -33,7 +33,7 @@
 void clearscreen(){printf("\033[2J\033[1;1H");}
 //void clearscreen(){system("clear");}
 
-
+void displayMainMenu(void);
 
 // File Checking
 bool filecheck(){
@@ -79,7 +79,6 @@ int login(){
     printf("Password: ");scanf("%s", logindetails.password);
 
     // check for secret login there or not lah
-
     if (strcmp(logindetails.username, secretusername) == 0 && strcmp(logindetails.password, secretpassword) == 0){clearscreen();printf("Bypass to system admin menu\n");displayMainMenu();fclose(usercred);return 0;}
         
     //split then compare 9 them
