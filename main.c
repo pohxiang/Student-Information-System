@@ -114,7 +114,7 @@ int login(){
                     printLecturerMenu(students,studentcount);break;
                     case 3:
                     menuProgrammeAdmin();break;}
-                fclose(usercred);
+                
 
                 return 0;}}}fclose(usercred);printf("Login Failed");return 0;}
 
@@ -139,7 +139,7 @@ void loginmenu() {
         } else {
             switch (choice) {
                 case 1:login();break;
-                case 2:printf("Goodbye!\n");sleep(2);clearscreen();remove("systeman");exit(0);break;      
+                case 2:printf("Goodbye!\n");clearscreen();remove("systeman");exit(0);break;      
             }
         }
     }

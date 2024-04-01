@@ -14,6 +14,6 @@ void readAttendance(struct StudentLect students[], int *studentCount);
 void printAttendance(struct StudentLect students[], int *studentCount);
 void updateAttendance(struct StudentLect students[], int studentCount);
 void calcAttendance(struct StudentLect students[], int studentCount);
-void checkMarks(const char* filename);
-void readMarks(const char* filename, struct StudentLect students[], int *studentCount);
+void checkMarks(struct StudentLect students[], int *studentCount);
+void readMarks(struct StudentLect students[], int *studentCount);
 void updateMarks(struct StudentLect students[], int studentCount);

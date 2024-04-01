@@ -3,8 +3,6 @@
 #include "structs.h"
 #include "systemadmin.h"
 
-
-
 void viewprofileStudent(int id) {
     struct studentprofile studentprofile;
     FILE *studentfile = fopen("studentfile.txt", "r");

@@ -64,7 +64,7 @@ void displayMainMenu() {
             studentgeneratereport();clearscreen();loginmenu();
 
         case 7:
-            printf("Goodbye!\n");sleep(2);clearscreen();loginmenu();break;
+            printf("Goodbye!\n");clearscreen();loginmenu();break;
             
         default:
             printf("Invalid choice. Please try again.\n\n");displayMainMenu();break;   

@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "systemadmin.h": "c",
+        "lecturer.h": "c",
+        "stdio.h": "c"
+    },
+    "C_Cpp.default.compilerPath": "C:\\MinGW\\bin\\gcc.exe"
+}
