@@ -1,0 +1,157 @@
+Pseudocode For Programme Admin
+
+FUNCTION menuProgrammeAdmin():
+    DECLARE choice AS INTEGER
+    WHILE True:
+        PRINT "Programme Admin Menu"
+        PRINT "1. Add Programme"
+        PRINT "2. Update Programme"
+        PRINT "3. Delete Programme"
+        PRINT "4. View Programme"
+        PRINT "5. Exit"
+        PRINT "Enter your choice: "
+        INPUT choice
+        SWITCH(choice) 
+            case 1 THEN
+                clearscreen()
+                viewstudentprofile()
+                break
+            case 2 THEN
+                clearscreen()
+                courseMenu()
+                break
+            case 3 THEN
+                OUTPUT "Goodbye!"
+                clearscreen()
+                loginmenu()
+                break
+    ENDWHILE
+ENDFUNCTION menuProgrammeAdmin()
+
+
+FUNCTION viewstudentprofile():
+    DECLARE studentid AS INTEGER
+    DECLARE studentprofile studentprofile
+    PRINT "Enter Student ID: "
+    INPUT studentid
+    FILE OPEN "studentfile.txt" AS mainstudentfile IN READ
+    WHILE NOT END OF FILE reached in mainstudentfile DO
+        READ studentid, name, intakecode, contactnumber, email INTO studentprofile
+        IF studentprofile.studenid EQUALS TO studenid THEN
+        PRINT formatted student profile using studentprofile data
+            (Name, Student ID, Intake Code, Contact Number, Email)
+        PRINT "Do you want to return to previous menu? (y/n): "
+        DECLARE choice AS CHARACTER
+        INPUT choice
+        IF choice EQUALS "y" THEN
+            FILE CLOSE mainstudentfile
+            break
+        ENDIF
+    ENDWHILE
+ENDFUNCTION viewstudentprofile()
+
+FUNCTION createcourse()
+    INTIALIZE Course AS course
+    PRINT "Enter Intake Code: "
+    INPUT course.intakecode
+    PRINT "Enter Module 1: "
+    INPUT course.module1
+    PRINT "Enter Module 2: "
+    INPUT course.module2
+    PRINT "Enter Module 3: "
+    INPUT course.module3
+    PRINT "Enter Module 4: "
+    INPUT course.module4
+    PRINT "Enter Module 5: "
+    INPUT course.module5
+    FILE OPEN "course.txt" AS maincoursefile IN APPEND
+    WRITE course data TO maincoursefile
+    FILE CLOSE maincoursefile
+    PRINT "Course Added successfully"
+ENDFUNCTION createcourse
+
+FUNCTION updateCourse()
+    INTIALIZE Course AS course
+    FILE OPEN "course.txt" AS maincoursefile IN READ
+    FILE OPEN "temp.txt" AS tempcoursefile IN WRITE
+    DECLARE intakeCode AS STRING MAX 10 CHAR
+    PRINT "Enter Intake Code: "
+    INPUT intakeCode
+    WHILE WHILE NOT END OF FILE reached in maincoursefile DO
+        READ intakecode, module1, module2, module3, module4 ,module5 INTO course
+        IF course.intakeCode EQUALS intakeCode THEN
+            PRINT "Enter Module 1: "
+            INPUT course.module1
+            PRINT "Enter Module 2: "
+            INPUT course.module2
+            PRINT "Enter Module 3: "
+            INPUT course.module3
+            PRINT "Enter Module 4: "
+            INPUT course.module4
+            PRINT "Enter Module 1: "
+            INPUT course.module5
+            WRITE course data TO maincoursefile
+        ELSE 
+    ENDWHILE
+ENDFUNCTION updateCourse
+
+FUNCTION enrolstudent()
+    DECLARE studentid AS INTEGER
+    INTIALIZE studentprofile AS student
+    PRINT "Enter Student ID: "
+    INPUT studentid
+      
+ENDFUNCTION enrolstudent()
+
+
+
+
+FUNCTION courseMenu()
+    DECLARE choice AS INTEGER
+    WHILE TRUE
+        PRINT "Course Management & Enrolment"
+        PRINT "1. Add Course"
+        PRINT "2. Update Course"
+        PRINT "3. Delete Course"
+        PRINT "4. View Course"
+        PRINT "5. Enrol Course for Student"
+        PRINT "6. Enrol Course for Lecturer"
+        PRINT "7. Exit"
+        PRINT "Enter your choice: "
+        IF choice IS NOT INTEGER THEN
+            PRINT "Please enter the option within the menu"
+            clearbuffer()
+            CONTINUE()
+        ELSE
+            SWITCH(choice)
+                case 1 THEN
+                    clearscreen()
+                    createcourse()
+                    break
+                case 2 THEN
+                    clearscreen()
+                    updateCourse()
+                    break
+                case 3 THEN
+                    clearscreen()
+                    courseDelete()
+                    break
+                case 4 THEN
+                    clearscreen()
+                    viewCourse()
+                    break()
+                case 5 THEN
+                    clearscreen()
+                    enrolstudent()
+                    return 0
+                case 6 THEN
+                    clearscreen()
+                    enrollecturer()
+                    return 0
+                case 7 THEN
+                    clearscreen()
+                    menuProgrammeAdmin()
+                    return 0
+        ENDIF
+    ENDWHILE
+ENDFUNCTION courseMenu()
