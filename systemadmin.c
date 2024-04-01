@@ -24,6 +24,8 @@ char calculate_grade(float marks);
 void searchAndPrintStudentByID(Student students[], int num_students, int searchID);
 bool searchStudentID(Student students[], int num_students, int targetID);
 float calculate_cgpa(float module_gpa[], int num_modules);
+bool isExistingID(User users[], int size, int id);
+void loadUsersFromFile(User users[], int *size) ;
 
 void displayMainMenu() {
     int choice;
@@ -71,25 +73,67 @@ void displayMainMenu() {
 
 
 
+bool isExistingID(User users[], int size, int id) {
+    for (int i = 0; i < size; i++) {
+        if (users[i].id == id) {
+            return true; // ID already exists
+        }
+    }
+    return false; // ID doesn't exist
+}
+ 
+void loadUsersFromFile(User users[], int *size) {
+    FILE *file = fopen("users.txt", "r");
+    if (file == NULL) {
+        printf("Error opening file\n");
+        return;
+    }
+ 
+    while (fscanf(file, "%d %s %s %d", &users[*size].id, users[*size].name, users[*size].password, (int *)&users[*size].type) != EOF) {
+        (*size)++;
+    }
+ 
+    fclose(file);
+}
+ 
 void addUser(User users[], int *size) {
     if (*size < MAXSIZE) {
-        printf("Enter ID for the User: ");
-        scanf("%d", &users[*size].id);
+        loadUsersFromFile(users, size); // Load existing users from file
+ 
+        int newID;
+        bool duplicateID;
+       
+        do {
+            duplicateID = false;
+            printf("Enter ID for the User: ");
+            scanf("%d", &newID);
+           
+            if (isExistingID(users, *size, newID)) {
+                printf("User with ID %d already exists. Please enter a different ID.\n", newID);
+                duplicateID = true;
+            }
+        } while (duplicateID);
+ 
+        users[*size].id = newID;
+ 
         printf("Enter name for the User: ");
         scanf("%s", users[*size].name);
         printf("Enter password for the User: ");
         scanf("%s", users[*size].password);
         printf("Enter type for the User (0 for Student, 1 for System_Admin, 2 for Lecturer, 3 for Programme Admin): ");
-        scanf("%d", (int*)&users[*size].type);
+        scanf("%d", (int *)&users[*size].type);
+ 
         (*size)++;
         printf("User added successfully.\n");
+ 
         FILE *file = fopen("users.txt", "a");
         if (file == NULL) {
             printf("Error opening file\n");
             return;
         }
-        fprintf(file, "%d %s %s %d\n", users[*size - 1].id, users[*size - 1].name, users[*size - 1].password, (int)users[*size - 1].type);
+        fprintf(file, "%d %s %s %d\n", users[*size - 1].id, users[*size - 1].name, users[*size - 1].password, users[*size - 1].type);
         fclose(file);
+ 
         if (users[*size - 1].type == 0) {
             studentprofilecreate(users[*size - 1].id, users[*size - 1].name);
         } else if (users[*size - 1].type == 2) {
