@@ -56,29 +56,19 @@ void viewstudentprofile(){
   }
 }
 
-/* Need to change here */ // Check if the course is already enrolled
+/* Need to change here */ // 
 void createCourse(){
+  FILE *maincoursefile = fopen("course.txt", "a");
   struct Course course;
-  char inputintakecode[20];
-  FILE *maincoursefile = fopen("course.txt", "r+");
-  printf("Enter Intake Code: ");scanf("%s", inputintakecode);
-  while (fscanf(maincoursefile, "%s %s %s %s %s %s\n", course.intakeCode, course.module1, course.module2, course.module3, course.module4, course.module5) != EOF){
-    if (strcmp(inputintakecode, course.intakeCode) == 0){
-      printf("Course already exists\n");
-      fclose(maincoursefile);
-      break;
-    }
-    else{
-      printf("Enter Module 1: ");scanf("%s", course.module1);
-      printf("Enter Module 2: ");scanf("%s", course.module2);
-      printf("Enter Module 3: ");scanf("%s", course.module3);
-      printf("Enter Module 4: ");scanf("%s", course.module4);
-      printf("Enter Module 5: ");scanf("%s", course.module5);
-      fprintf(maincoursefile, "%s %s %s %s %s %s\n", inputintakecode, course.module1, course.module2, course.module3, course.module4, course.module5);
-      fclose(maincoursefile);
-      break;
-    }
-  }
+  printf("Enter Intake Code: ");scanf("%s", course.intakeCode);
+  printf("Enter Module 1: ");scanf("%s", course.module1);
+  printf("Enter Module 2: ");scanf("%s", course.module2);
+  printf("Enter Module 3: ");scanf("%s", course.module3);
+  printf("Enter Module 4: ");scanf("%s", course.module4);
+  printf("Enter Module 5: ");scanf("%s", course.module5);
+  fprintf(maincoursefile, "%s %s %s %s %s %s\n", course.intakeCode, course.module1, course.module2, course.module3, course.module4, course.module5);
+  fclose(maincoursefile);
+  printf("Course added successfully\n");
 }
 
 void updateCourse(){
