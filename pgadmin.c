@@ -185,7 +185,7 @@ void enrolstudent(){
           printf("Enter Intake Code: ");
           scanf("%s", student.intakecode);
           fprintf(tempstudentfile, "%d %s %s %s %s\n", student.studentid, student.name, student.intakecode, student.contactnumber, student.email);
-          fprintf(coursemarkfile, "%d %s  %s %s %s %s %f%f%f%f%f%f\n", student.studentid, student.name, course.module1, course.module2, course.module3, course.module4, course.module5, "0.00", "0.00", "0.00", "0.00", "0.00");
+          fprintf(coursemarkfile, "%d %s %s %s %s %s %s %f%f%f%f%f\n", student.studentid, student.name, course.module1, course.module2, course.module3, course.module4, course.module5, 0.00, 0.00, 0.00, 0.00, 0.00);
           fclose(mainstudentfile);fclose(tempstudentfile);fclose(coursefile);fclose(coursemarkfile);
           remove("studentfile.txt");rename("temp.txt", "studentfile.txt");
         }
@@ -244,7 +244,7 @@ int courseMenu(){
       continue;}
     else{
       switch (choice){
-        case 1:clearscreen();createcourse();break;
+        case 1:clearscreen();createCourse();break;
         case 2:clearscreen();updateCourse();break;
         case 3:clearscreen();courseDelete();break;
         case 4:clearscreen();viewCourse();break;
