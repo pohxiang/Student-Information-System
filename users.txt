@@ -1,3 +1,4 @@
-2 zach 123456 3
-5 lol 123456 1
-6 pohxiang 123456 3
+1 pohxiang 123456 0
+2 sysadmin 123456 1
+3 lecturer 123456 2
+4 pgadmin 123456 3
