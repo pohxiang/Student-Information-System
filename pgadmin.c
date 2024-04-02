@@ -60,7 +60,7 @@ void viewstudentprofile(){
 void createCourse(){
   struct Course course;
   char inputintakecode[20];
-  FILE *maincoursefile = fopen("course.txt", "a");
+  FILE *maincoursefile = fopen("course.txt", "r+");
   printf("Enter Intake Code: ");scanf("%s", inputintakecode);
   while (fscanf(maincoursefile, "%s %s %s %s %s %s\n", course.intakeCode, course.module1, course.module2, course.module3, course.module4, course.module5) != EOF){
     if (strcmp(inputintakecode, course.intakeCode) == 0){
