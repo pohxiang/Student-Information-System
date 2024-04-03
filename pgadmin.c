@@ -243,7 +243,7 @@ int courseMenu(){
         case 3:clearscreen();courseDelete();break;
         case 4:clearscreen();viewCourse();break;
         case 5:clearscreen();enrolstudent();return 0;
-        case 6:clearscreen();enrollecturer();return 0;
+        //case 6:clearscreen();enrollecturer();return 0;
         case 7:clearscreen();menuProgrammeAdmin();return 0;
       }
     }

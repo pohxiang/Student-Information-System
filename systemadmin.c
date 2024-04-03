@@ -89,7 +89,7 @@ void loadUsersFromFile(User users[], int *size) {
         return;
     }
  
-    while ((*size < MAXSIZE) && fscanf(file, "%d %s %s %d", &users[*size].id, users[*size].name, users[*size].password, &users[*size].type) != EOF) {
+    while ((*size < MAXSIZE) && fscanf(file, "%d %s %s %d", &users[*size].id, users[*size].name, users[*size].password, (int *)&users[*size].type) != EOF) {
         (*size)++;
     }
  
@@ -121,7 +121,7 @@ void addUser(User users[], int *size) {
         printf("Enter password for the User: ");
         scanf("%s", users[*size].password);
         printf("Enter type for the User (0 for Student, 1 for System_Admin, 2 for Lecturer, 3 for Programme Admin): ");
-        scanf("%d", &users[*size].type);
+        scanf("%d", (int *)&users[*size].type);
  
         (*size)++;
         printf("User added successfully.\n");
