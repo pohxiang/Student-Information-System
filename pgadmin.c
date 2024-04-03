@@ -56,8 +56,6 @@ void viewstudentprofile(){
   }
 }
 
-/* Need to change here */ // 
-
 
 bool checkavailabilityofcourse(char *intakecode){
   struct Course course;
@@ -183,26 +181,26 @@ void courseDelete(){
 
 void enrolstudent(){
   int studentid;
-  struct studentprofile student;
+  struct studentprofile studentprof;
   struct Course course;
   printf("Enter Student ID: ");scanf("%d", &studentid);
   FILE *mainstudentfile = fopen("studentfile.txt", "r");
   FILE *tempstudentfile = fopen("temp.txt", "w");
   FILE *coursefile = fopen("course.txt", "r");
   FILE *coursemarkfile = fopen("coursemark.txt", "a");
-  while (fscanf(mainstudentfile, "%d %s %s %s %s\n", &student.studentid, student.name, student.intakecode, student.contactnumber, student.email) != EOF){
-    if (student.studentid == studentid){
+  while (fscanf(mainstudentfile, "%d %s %s %s %s\n", &studentprof.studentid, studentprof.name, studentprof.intakecode, studentprof.contactnumber, studentprof.email) != EOF){
+    if (studentprof.studentid == studentid){
       while (fscanf(coursefile, "%s%s%s%s%s%s\n", course.intakeCode, course.module1, course.module2, course.module3, course.module4, course.module5) != EOF){
-        if (strcmp(student.intakecode, course.intakeCode) == 0){
+        if (strcmp(studentprof.intakecode, course.intakeCode) == 0){
           printf("Enter Intake Code: ");
-          scanf("%s", student.intakecode);
-          fprintf(tempstudentfile, "%d %s %s %s %s\n", student.studentid, student.name, student.intakecode, student.contactnumber, student.email);
-          fprintf(coursemarkfile, "%d %s %s %s %s %s %s %f%f%f%f%f\n", student.studentid, student.name, course.module1, course.module2, course.module3, course.module4, course.module5, 0.00, 0.00, 0.00, 0.00, 0.00);
+          scanf("%s", studentprof.intakecode);
+          fprintf(tempstudentfile, "%d %s %s %s %s\n", studentprof.studentid, studentprof.name, studentprof.intakecode, studentprof.contactnumber, studentprof.email);
+          fprintf(coursemarkfile, "%d %s %s %s %s %s %s %f%f%f%f%f\n", studentprof.studentid, studentprof.name, course.module1, course.module2, course.module3, course.module4, course.module5, 0.00, 0.00, 0.00, 0.00, 0.00);
           fclose(mainstudentfile);fclose(tempstudentfile);fclose(coursefile);fclose(coursemarkfile);
           remove("studentfile.txt");rename("temp.txt", "studentfile.txt");
         }
         else{
-          fprintf(tempstudentfile, "%d %s %s %s %s\n", student.studentid, student.name, student.intakecode, student.contactnumber, student.email);
+          fprintf(tempstudentfile, "%d %s %s %s %s\n", studentprof.studentid, studentprof.name, studentprof.intakecode, studentprof.contactnumber, studentprof.email);
           fclose(mainstudentfile);fclose(tempstudentfile);
           remove("studentfile.txt");rename("temp.txt", "studentfile.txt");
         }
