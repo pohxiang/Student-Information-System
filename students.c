@@ -152,6 +152,10 @@ void viewenrolledcoursestudent(int id){
 }
 
 
+// 
+void translatemarkstograde(int id){
+
+}
 
 
 
