@@ -30,8 +30,8 @@
 #define fileGradeDefinition "gradeDefinition.txt"
 
 // Clear Screen
-void clearscreen(){printf("Hit ");}
-//void clearscreen(){printf("\033[2J\033[1;1H");}
+//void clearscreen(){printf("Hit ");}
+void clearscreen(){printf("\033[2J\033[1;1H");}
 //void clearscreen(){system("clear");}
 
 void displayMainMenu(void);

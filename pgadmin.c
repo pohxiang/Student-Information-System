@@ -2,6 +2,21 @@
 #include "main.h"
 #include "structs.h"
 
+
+// Function Prototype
+int menuProgrammeAdmin();
+void createCourse();
+void viewCourse();
+void courseDelete();
+int courseMenu();
+void enrolstudent();
+void enroltocoursemark(char *name, char *intakecode, int studentid);
+void viewstudentprofile();
+bool checkavailabilityofcourse(char *intakecode);
+void enroltoattendance(char *name, int studentid, char * intakecode);
+
+
+
 // Programme Admin Menu
 int menuProgrammeAdmin(){
   int choice;
@@ -173,8 +188,7 @@ void courseDelete(){
 }
 
 
-// Forward declaration of enroltocoursemark
-void enroltocoursemark(char *name, char *intakecode, int studentid);
+
 
 void enrolstudent(){
   int studentid;
@@ -202,6 +216,7 @@ void enrolstudent(){
       scanf("%s", student.intakecode);
       fprintf(tempstudentfile, "%d %s %s %s %s\n", student.studentid, student.name, student.intakecode, student.contactnumber, student.email);
       enroltocoursemark(student.name, student.intakecode, student.studentid);
+      enroltoattendance(student.name, student.studentid, student.intakecode);
     }
     else{
       fprintf(tempstudentfile, "%d %s %s %s %s\n", student.studentid, student.name, student.intakecode, student.contactnumber, student.email);
@@ -249,7 +264,29 @@ void enroltocoursemark(char *name, char *intakecode, int studentid){
   fclose(coursemarkfile);
 }
 
-
+void enroltoattendance(char *name, int studentid, char *intakecode){
+  struct StudentLect studentlect;
+  struct Course course;
+  int i;
+  FILE *attendancefile = fopen("attendance.txt", "a");
+  FILE *maincoursefile = fopen("course.txt", "r");
+  while(fscanf(maincoursefile, "%s %s %s %s %s %s\n", course.intakeCode, course.module1, course.module2, course.module3, course.module4, course.module5) == 6){
+    if (strcmp(course.intakeCode, intakecode) == 0){
+      char* modules[] = {course.module1, course.module2, course.module3, course.module4, course.module5};
+      for (i = 0; i < Num_courses; i++){
+        strcpy(studentlect.name, name);
+        studentlect.id = studentid;
+        strcpy(studentlect.date, "N/A");
+        strcpy(studentlect.modules[i], modules[i]);
+        studentlect.attendance = 0;
+        studentlect.totalClass = 0;
+        fprintf(attendancefile, "%d %s %s %s %d %d\n", studentlect.id, studentlect.name, studentlect.modules[i], studentlect.date, studentlect.attendance, studentlect.totalClass);
+      }
+    }
+  }
+  fclose(maincoursefile);
+  fclose(attendancefile);
+}
 
 
 
