@@ -179,43 +179,27 @@ void courseDelete(){
 
 
 
-// Enrol student into studentfile.txt and add into coursemark.txt
-void enrolstudent(){
+void enrolstudnet(){
   struct studentprofile studentprofile;
-  struct Course course;
-  int studentid;
-  char intakecode[20];
-  FILE *mainstudentfile = fopen("studentfile.txt", "r");
-  FILE *tempstudentfile = fopen("temp.txt", "w");
-  FILE *maincoursefile = fopen("course.txt", "r");
-  FILE *tempcoursefile = fopen("temp.txt", "w");
-  FILE *coursemarkfile = fopen("coursemark.txt", "a");
-  printf("Enter Student ID: ");scanf("%d", &studentid);
-  printf("Enter Intake Code: ");scanf("%s", intakecode);
+  FILE *mainstudentfile = fopen("studentfile.txt", "w");
+  int studentid; char intakecode[20];
   while (fscanf(mainstudentfile, "%d %s %s %s %s\n", &studentprofile.studentid, studentprofile.name, studentprofile.intakecode, studentprofile.contactnumber, studentprofile.email) != EOF){
-    if (studentprofile.studentid == studentid){
-      fprintf(tempstudentfile, "%d %s %s %s %s\n", studentprofile.studentid, studentprofile.name, intakecode, studentprofile.contactnumber, studentprofile.email);
-    }
-    else{
-      fprintf(tempstudentfile, "%d %s %s %s %s\n", studentprofile.studentid, studentprofile.name, studentprofile.intakecode, studentprofile.contactnumber, studentprofile.email);
-    }
+    printf("Enter Student ID: ");scanf("%d", &studentid);
+    printf("Enter Intake Code: ");scanf("%s", intakecode);
+    fprintf(mainstudentfile, "%d %s %s %s %s\n", studentprofile.studentid, studentprofile.name, studentprofile.intakecode, studentprofile.contactnumber, studentprofile.email);
+    fclose(mainstudentfile);
+    printf("Student enrolled successfully\n");
   }
-  fclose(mainstudentfile);
-  fclose(tempstudentfile);
-  remove("studentfile.txt");
-  rename("temp.txt", "studentfile.txt");
-  while (fscanf(maincoursefile, "%s %s %s %s %s %s\n", course.intakeCode, course.module1, course.module2, course.module3, course.module4, course.module5) != EOF){
-    if (strcmp(course.intakeCode, intakecode) == 0){
-      fprintf(coursemarkfile, "%d %s %s %s %s %s %s\n", studentid, course.intakeCode, course.module1, course.module2, course.module3, course.module4, course.module5);
-    }
-  }
-  fclose(maincoursefile);
-  fclose(tempcoursefile);
-  fclose(coursemarkfile);
-  printf("Student enrolled successfully\n");
+}
+
+void enroltocoursemark(){
+
 }
 
 
+void enrollecturer(){
+
+}
 
 int courseMenu(){
   int choice;
