@@ -106,20 +106,15 @@ void updateCourse(){
       printf("Enter Module 4: ");scanf("%s", course.module4);
       printf("Enter Module 5: ");scanf("%s", course.module5);
       fprintf(tempcoursefile, "%s %s %s %s %s %s\n", course.intakeCode, course.module1, course.module2, course.module3, course.module4, course.module5);
-      fclose(maincoursefile);
-      fclose (tempcoursefile);
-      remove("course.txt");
-      rename ("temp.txt", "course.txt");
-
     }
     else{
       fprintf(tempcoursefile, "%s %s %s %s %s %s\n", course.intakeCode, course.module1, course.module2, course.module3, course.module4, course.module5);
-      fclose(maincoursefile);
-      fclose(tempcoursefile);
-      remove("course.txt");
-      rename ("temp.txt", "course.txt");
     }
   }
+  fclose(maincoursefile);
+  fclose(tempcoursefile);
+  remove("course.txt");
+  rename("temp.txt", "course.txt");
 }
 
 void viewCourse(){
@@ -179,30 +174,70 @@ void courseDelete(){
 
 
 
-void enrolstudent(const char *intakecode){
-  struct studentprofile studentprofile;
-  FILE *mainstudentfile = fopen("studentfile.txt", "w");
-  int studentid; char intakecode[20];
-  while (fscanf(mainstudentfile, "%d %s %s %s %s\n", &studentprofile.studentid, studentprofile.name, studentprofile.intakecode, studentprofile.contactnumber, studentprofile.email) != EOF){
-    printf("Enter Student ID: ");scanf("%d", &studentid);
-    printf("Enter Intake Code: ");scanf("%s", intakecode);
-    fprintf(mainstudentfile, "%d %s %s %s %s\n", studentprofile.studentid, studentprofile.name, studentprofile.intakecode, studentprofile.contactnumber, studentprofile.email);
+void enroltocoursemark(int studentid, const char *intakecode, const char *studentname);
+
+void enrolstudent(int studentid, const char *intakecode, const char *studentname) {
+    struct studentprofile student;
+    int localstudentid;
+
+    printf("Enter Student ID: ");
+    scanf("%d", &localstudentid);
+
+    FILE *mainstudentfile = fopen("studentfile.txt", "r");
+    FILE *tempstudentfile = fopen("temp.txt", "w");
+
+    while (fscanf(mainstudentfile, "%d %s %s %s %s\n", &student.studentid, student.name, student.intakecode, student.contactnumber, student.email) != EOF) {
+        if (student.studentid == localstudentid) {
+            strcpy((char *)studentname, student.name);
+            printf("Enter Intake Code: ");
+            scanf("%s", student.intakecode);
+            fprintf(tempstudentfile, "%d %s %s %s %s\n", student.studentid, student.name, student.intakecode, student.contactnumber, student.email);
+            enroltocoursemark(studentid, intakecode, studentname);
+        } else {
+            fprintf(tempstudentfile, "%d %s %s %s %s\n", student.studentid, student.name, student.intakecode, student.contactnumber, student.email);
+        }
+    }
+
     fclose(mainstudentfile);
+    fclose(tempstudentfile);
+    remove("studentfile.txt");
+    rename("temp.txt", "studentfile.txt");
     printf("Student enrolled successfully\n");
-  }
 }
 
-void enroltocoursemark(){
+void enroltocoursemark(int studentid, const char *intakecode, const char *studentname) {
+    struct StudentLect studentlect;
+    struct Course course;
 
+    FILE *maincoursemarkfile = fopen("coursemark.txt", "a");
+    FILE *coursedetails = fopen("course.txt", "r");
+
+    while (fscanf(coursedetails, "%s %s %s %s %s %s\n", course.intakeCode, course.module1, course.module2, course.module3, course.module4, course.module5) != EOF) {
+        if (strcmp(course.intakeCode, intakecode) == 0) {
+            strcpy(studentlect.modules[0], course.module1);
+            strcpy(studentlect.modules[1], course.module2);
+            strcpy(studentlect.modules[2], course.module3);
+            strcpy(studentlect.modules[3], course.module4);
+            strcpy(studentlect.modules[4], course.module5);
+            studentlect.marks[0] = 0;
+            studentlect.marks[1] = 0;
+            studentlect.marks[2] = 0;
+            studentlect.marks[3] = 0;
+            studentlect.marks[4] = 0;
+            fprintf(maincoursemarkfile, "%d %s %s %s %s %s %s %f %f %f %f %f\n", studentid, studentname, studentlect.modules[0], studentlect.modules[1], studentlect.modules[2], studentlect.modules[3], studentlect.modules[4], studentlect.marks[0], studentlect.marks[1], studentlect.marks[2], studentlect.marks[3], studentlect.marks[4]);
+        }
+    }
+
+    fclose(maincoursemarkfile);
+    fclose(coursedetails);
 }
 
-
-void enrollecturer(){
-
-}
 
 int courseMenu(){
   int choice;
+  const char *intakecode; 
+  int studentid;
+  const char *studentname;
   while (1){
     printf("=======================================================\n");
     printf("|          Course Management & Enrolment              |\n");
@@ -226,7 +261,7 @@ int courseMenu(){
         case 2:clearscreen();updateCourse();break;
         case 3:clearscreen();courseDelete();break;
         case 4:clearscreen();viewCourse();break;
-        case 5:clearscreen();enrolstudent();return 0;
+        case 5:clearscreen();enrolstudent(studentid, intakecode,studentname);break;
         //case 6:clearscreen();enrollecturer();return 0;
         case 7:clearscreen();menuProgrammeAdmin();return 0;
       }
