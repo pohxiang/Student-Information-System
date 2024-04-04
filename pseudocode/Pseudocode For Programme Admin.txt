@@ -28,7 +28,6 @@ FUNCTION menuProgrammeAdmin():
     ENDWHILE
 ENDFUNCTION menuProgrammeAdmin()
 
-
 FUNCTION viewstudentprofile():
     DECLARE studentid AS INTEGER
     DECLARE studentprofile studentprofile

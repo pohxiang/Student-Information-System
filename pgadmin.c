@@ -179,7 +179,7 @@ void courseDelete(){
 
 
 
-void enrolstudnet(){
+void enrolstudent(const char *intakecode){
   struct studentprofile studentprofile;
   FILE *mainstudentfile = fopen("studentfile.txt", "w");
   int studentid; char intakecode[20];
