@@ -1,7 +1,13 @@
-#include "pgadmin.h"
 #include "main.h"
 #include "structs.h"
-
+#include <stdio.h>
+#include <stdbool.h>
+#include <stdlib.h>
+#include <string.h>
+#define maxintakecode 30
+#define maxcourseperintake 10
+#define maxmodulename 100
+#define courseinfosize 1000
 
 // Function Prototype
 int menuProgrammeAdmin();
@@ -10,6 +16,7 @@ void viewCourse();
 void courseDelete();
 int courseMenu();
 void enrolstudent();
+void enrollecturer();
 void enroltocoursemark(char *name, char *intakecode, int studentid);
 void viewstudentprofile();
 bool checkavailabilityofcourse(char *intakecode);
@@ -290,7 +297,29 @@ void enroltoattendance(char *name, int studentid, char *intakecode){
 
 
 
-
+void enrollecturer(){
+  struct lecturerprofile lecturer;
+  int lecturerid;
+  printf("Enter Lecturer ID to assign course: ");
+  scanf("%d", &lecturerid);
+  FILE *mainlecturerfile = fopen("lecturerfile.txt", "r");
+  FILE *templecturerfile = fopen("temp.txt", "w");
+  while (fscanf(mainlecturerfile, "%d %s %s %s %s\n", &lecturer.lecturerid, lecturer.name, lecturer.enrolledcourse, lecturer.contactnumber, lecturer.email) != EOF){
+    if (lecturer.lecturerid == lecturerid){
+      printf("Enter Course to assign: ");
+      scanf("%s", lecturer.enrolledcourse);
+      fprintf(templecturerfile, "%d %s %s %s %s\n", lecturer.lecturerid, lecturer.name, lecturer.enrolledcourse, lecturer.contactnumber, lecturer.email);
+    }
+    else{
+      fprintf(templecturerfile, "%d %s %s %s %s\n", lecturer.lecturerid, lecturer.name, lecturer.enrolledcourse, lecturer.contactnumber, lecturer.email);
+    }
+  }
+  fclose(mainlecturerfile);
+  fclose(templecturerfile);
+  remove("lecturerfile.txt");
+  rename("temp.txt", "lecturerfile.txt");
+  printf("Lecturer assigned to course successfully\n");
+}
 
 
 
@@ -320,7 +349,7 @@ int courseMenu(){
         case 3:clearscreen();courseDelete();break;
         case 4:clearscreen();viewCourse();break;
         case 5:clearscreen();enrolstudent();break;
-        //case 6:clearscreen();enrollecturer();return 0;
+        case 6:clearscreen();enrollecturer();return 0;
         case 7:clearscreen();menuProgrammeAdmin();return 0;
       }
     }

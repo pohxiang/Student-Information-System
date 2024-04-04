@@ -8,9 +8,6 @@
 //  header files
 #include "structs.h"
 #include "systemadmin.h"
-#include "pgadmin.h"
-#include "lecturer.h"
-#include "students.h"
 
 //  limits
 #define MAXSIZE 100

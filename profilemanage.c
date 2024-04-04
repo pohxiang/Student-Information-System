@@ -5,6 +5,8 @@
 #define lecturerinfofile "lecturerfile.txt"
 
 
+
+
 // get the student id and name which is returned from adding user in systemadmin file
 
 void studentprofilecreate(int id, char name[]){

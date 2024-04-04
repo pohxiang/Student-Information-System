@@ -1,7 +1,21 @@
-#include "students.h"
 #include "main.h"
 #include "structs.h"
 #include "systemadmin.h"
+#include <stdio.h>
+#include <stdbool.h>
+#include <stdlib.h>
+#include <string.h>
+
+// Function Prototype
+void viewprofileStudent(int id);
+void menustudentupdatedata(int id);
+void updatecontactnumstu(int id);
+void updatemailstu(int id);
+void viewenrolledcoursestudent(int id);
+void viewattendance(int id);
+void viewselfresult(int id);
+
+
 
 void viewprofileStudent(int id) {
     struct studentprofile studentprofile;
