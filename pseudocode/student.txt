@@ -203,5 +203,49 @@ FUNCTION viewselfresult
 ENDFUNCTION viewselfresult
 
 FUNCTION viewattendance
-    
+    FILE OPEN "Attendance.txt" AS attendancefile IN READ
+    INTIALIZE studentLect AS studentLect
+    INTIALIZE studentprofile AS studentprofile
+    IF attendancefile IS NULL THEN
+        PRINT "Error opening file"
+        return
+    ENDIF
+    INTIALIZE AttendanceRecord attendanceRecords MAX 100
+    DECLARE recordCount AS INTEGER
+    recordCount = 0
+
+    WHILE NOT END OF FILE reached in attendancefile DO
+        READ studentid, name, module1, module2, module3, module4, module5 TO studentLect
+        IF id EQUALS studentLect.studentid THEN
+            COPY studentLect.course TO attendanceRecords[recordCount].course
+            COPY studentLect.date TO attendanceRecords[recordCount].date
+            attendanceRecords[recordCount].attendance = studentLect.attendance
+            attendanceRecords[recordCount].totalclass = studentLect.totalclass
+            recordCount INCREMENT BY STEP 1
+        ENDIF
+    ENDWHILE
+
+    IF recordCount IS 0 THEN
+        PRINT "No attendance records found for the given ID"
+    ELSE
+        PRINT "ATTENDANCE"
+        LOOP I FROM 0 TO recordCount STEP 1
+            PRINT "Course: ", attendanceRecords[i].course
+            PRINT "Date: " , attendanceRecords[i].date
+            PRINT "Attendance: " ,attendanceRecords[i].attendance
+            PRINT "Total Class: ", attendanceRecords[i].totalclass
+        ENDLOOP
+    ENDIF
+    PRINT "Do you want to return to previous menu? (y/n)"
+    DECLARE choice AS CHARACTER
+    IF choice IS NOT CHARACTER THEN
+        PRINT "Invalid choice. Please try again"
+    ELSE IF choice IS "y" THEN
+        CALL clearscreen()
+        CALL viewprofileStudent(id)
+    ELSE IF choice IS "n"
+        CALL viewattendance(id)
+    ENDIF
+    CLOSE FILE attendancefile
 ENDFUNCTION viewattendance
+
