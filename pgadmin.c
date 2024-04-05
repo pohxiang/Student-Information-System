@@ -275,7 +275,7 @@ void enroltoattendance(char *name, int studentid, char *intakecode){
   struct StudentLect studentlect;
   struct Course course;
   int i;
-  FILE *attendancefile = fopen("attendance.txt", "a");
+  FILE *attendancefile = fopen("Attendance.txt", "a");
   FILE *maincoursefile = fopen("course.txt", "r");
   while(fscanf(maincoursefile, "%s %s %s %s %s %s\n", course.intakeCode, course.module1, course.module2, course.module3, course.module4, course.module5) == 6){
     if (strcmp(course.intakeCode, intakecode) == 0){

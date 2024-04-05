@@ -1,0 +1,207 @@
+FUNCTION viewprofileStudent
+    PARAMETER id AS INTEGER
+    INTIALIZE studentprofile AS studentprofile
+    FILE OPEN "studentfile.txt" AS studentfile IN READ
+    WHILE NOT END OF FILE reached in studentfile DO
+        READ studentid, name, intakecode, contactnumber, email TO studentprofile
+        IF id EQUALS studentprofile.studentid THEN
+            PRINT "Overview"
+            PRINT "Name: ", studentprofile.name
+            PRINT "Student ID: ", studentprofile.studenid
+            PRINT "Intake Code: ", studentprofile.intakecode
+            PRINT "Contact Number: ", studentprofile.contactnumber
+            PRINT "Email: ", studentprofile.email
+            PRINT "1. View Attedance"
+            PRINT "2. View Enrolled Module" 
+            PRINT "3. View Results"
+            PRINT "4. Update Personal Details"
+            PRINT "5. Exit"
+            DECLARE choice AS INTEGER
+            PRINT "Enter your choice: "
+            INPUT choice
+            IF choice NOT INTEGER THEN
+                CLEAR INPUT BUFFER
+                continue
+            ENDIF
+            SWITCH(choice) 
+            case 1 THEN
+                clearscreen()
+                viewattendance(id)
+                break
+            case 2 THEN
+                clearscreen()
+                iewenrolledcoursestudent(id)
+                break
+            case 3 THEN
+                clearscreen()
+                viewselfresult(id)
+                break
+            case 4 THEN
+                clearscreen()
+                menustudentupdatedata(id)
+                break
+            case 5 THEN
+                clearscreen()
+                loginmenu()
+        ENDIF
+    ENDWHILE
+ENDFUNCTION viewprofileStudent
+
+FUNTION menustudentupdatedata()
+    PARAMETER id AS INTEGER
+    DECLARE choice AS INTEGER
+    PRINT "Update Data"
+    PRINT "1. Update Contact Number"
+    PRINT "2. Update Email"
+    PRINT "3. Back"
+    PRINT "Enter your choice: "
+    INPUT choice
+    IF choice NOT INTEGER THEN
+        PRINT "Invalid Input"
+        CLEAR INPUT BUFFER
+        return
+    ENDIF
+
+    SWITCH(choice) 
+            case 1 THEN
+                updatecontactnumstu(id)
+                break
+            case 2 THEN
+                updatemailstu(id)
+                break
+            case 3 THEN
+                viewprofileStudent(id)
+                break
+ENDFUNCTION menustudentupdatedata
+
+FUNCTION updatecontactnumstu()
+    PARAMETER id AS INTEGER
+    INTIALIZE studentprofile AS studentprofile
+    FILE OPEN "studentfile.txt" AS f IN READ
+    FILE OPEN "temp.txt" AS ft IN WRITE  
+    DECLARE found AS INTEGER
+    found = 0
+    DECLARE choice AS CHARACTER
+
+    IF f EQUALS NULL OR ft EQUALS NULL THEN
+        PRINT "Error opening files"
+        RETURN
+    ENDIF
+
+    WHILE NOT END OF FILE reached in studentfile DO
+        READ studentid, name, intakecode, contactnumber, email TO studentprofile
+        IF id EQUALS studentprofile.studentid THEN
+            found = 1
+            PRINT "Your current contact number is: ", studentprofile.contactnumber
+            PRINT "Do you want to update your contact number? (Y/N)"
+            INPUT choice
+            IF choice NOT CHARACTER THEN
+                PRINT "Invalid choice. Please try again"
+                CLEAR INPUT BUFFER
+                CONTINUE
+            ENDIF
+            IF choice EQUALS "y" THEN
+                PRINT "Enter new contact number: "
+                INPUT studentprofile.contactnumber
+            ENDIF
+        ENDIF
+        WRITE studentprofile data TO ft
+    ENDWHILE
+    FILE close f
+    FILE close ft
+    IF NOT found THEN
+        PRINT "Student ID not found"
+        FILE DELETE "temp.txt"
+    ELSE
+        FILE DELETE "studentfile.txt"
+        FILE RENAME "temp.txt" TO "studentfile.txt"
+        PRINT "Contact number updated successfully"
+    ENDIF
+ENDFUNCTION updatecontactnumstu
+
+FUNCTION updatemailstu()
+    PARAMETER id AS INTEGER
+    INTIALIZE studentprofile AS studentprofile
+    FILE OPEN "studentfile.txt" AS f IN READ
+    FILE OPEN "temp.txt" AS ft IN WRITE
+    DECLARE found AS INTEGER
+    found = 0
+    DECLARE choice AS CHARACTER
+    
+    IF f EQUALS NULL OR ft EQUALS NULL THEN
+        PRINT "Error opening files"
+        RETURN
+    ENDIF
+
+    WHILE NOT END OF FILE reached in studentfile DO
+        READ studentid, name, intakecode, contactnumber, email TO studentprofile
+        IF id EQUALS studentprofile.studentid THEN
+            found = 1
+            PRINT "Your current email is: ", studentprofile.email
+            PRINT "Do you want to update your email? (Y/N)"
+            INPUT choice
+            IF choice NOT CHARACTER THEN
+                PRINT "Invalid choice. Please try again"
+                CLEAR INPUT BUFFER
+                CONTINUE
+            ENDIF
+            IF choice EQUALS "y" THEN
+                PRINT "Enter new email: "
+                INPUT studentprofile.email
+            ENDIF
+        ENDIF
+        WRITE studentprofile data TO ft
+    ENDWHILE
+    FILE close f
+    FILE close ft
+    IF NOT found THEN
+        PRINT "Student ID not found"
+        FILE DELETE "temp.txt"
+    ELSE
+        FILE DELETE "studentfile.txt"
+        FILE RENAME "temp.txt" TO "studentfile.txt"
+        PRINT "Email updated successfully"
+ENDFUNCTION updatemailstu
+
+FUNTION viewenrolledcoursestudent()
+    INTIALIZE studentprofile AS studentprofile
+    INTIALIZE Course as Course
+    FILE OPEN "studentfile.txt" AS studentfile IN READ
+    FILE OPEN "course.txt" AS coursefile IN READ
+
+    WHILE NOT END OF FILE reached in studentfile DO
+        READ studentid, name, intakecode, contactnumber, email TO studentprofile
+        IF id EQUALS studentprofile.studentid THEN
+            WHILE NOT END OF FILE reached in coursefile DO
+                READ intakeCode, module1, module2, module3, module4, module5 TO course
+                IF studentprofile.intakecode EQUALS Course.intakecode THEN
+                    PRINT "Enrolled Course"
+                    PRINT "Module 1: ", course.module1
+                    PRINT "Module 2: ", course.module2
+                    PRINT "Module 3: ", course.module3
+                    PRINT "Module 4: ", course.module4
+                    PRINT "Module 5: ", course.module5
+                ENDIF
+            ENDWHILE
+            PRINT "Do you want to return to previous menu? (y/n): "
+            DECLARE choice AS CHARACTER
+            INPUT choice
+            IF choice NOT CHARACTER THEN
+                CLEAR INPUT BUFFER
+                PRINT "Invalid choice. Please try again."
+            ELSE IF choice EQUALS "y" THEN
+                clearscreen()
+                viewprofileStudent(id)
+            ELSE IF choice EQUALS "n" THEN
+                clearscreen()
+                viewenrolledcoursestudent(id)
+            ENDIF
+        ENDIF
+ENDFUNCTION viewenrolledcoursestudent
+
+FUNCTION viewselfresult
+ENDFUNCTION viewselfresult
+
+FUNCTION viewattendance
+    
+ENDFUNCTION viewattendance

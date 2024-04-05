@@ -76,7 +76,7 @@ void menustudentupdatedata(int id) {
     switch (choice){
         case 1:updatecontactnumstu(id);break;
         case 2:updatemailstu(id);break;
-        case 3:viewprofileStudent(id);
+        case 3:viewprofileStudent(id);break;
     }
 }
 
@@ -96,6 +96,8 @@ void updatecontactnumstu(int id) {
             printf("Do you want to change your contact number (y/n): ");
             if (scanf(" %c", &choice) != 1) {
                 printf("Invalid choice. Please try again.\n\n");
+                
+                continue;
             }
             if (choice == 'y') {
                 printf("Enter new contact number: ");
@@ -166,10 +168,6 @@ void viewenrolledcoursestudent(int id){
 }
 
 
-// 
-void translatemarkstograde(int id){
-
-}
 
 
 
