@@ -191,7 +191,6 @@ void courseDelete(){
   remove("course.txt");
   rename("temp.txt", "course.txt");
   printf("Course deleted successfully\n");
-
 }
 
 
@@ -287,7 +286,7 @@ void enroltoattendance(char *name, int studentid, char *intakecode){
         strcpy(studentlect.modules[i], modules[i]);
         studentlect.attendance = 0;
         studentlect.totalClass = 0;
-        fprintf(attendancefile, "%d %s %s %s %d %d\n", studentlect.id, studentlect.name, studentlect.modules[i], studentlect.date, studentlect.attendance, studentlect.totalClass);
+        fprintf(attendancefile, "%d %s %s %s %d %d\n", studentlect.id, studentlect.name, studentlect.date,studentlect.modules[i], studentlect.attendance, studentlect.totalClass);
       }
     }
   }
