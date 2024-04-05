@@ -261,7 +261,23 @@ FUNCTION enrollecturer
     DECLARE lecturerid AS INTEGER
     PRINT "Enter Lectuer ID to assign course: "
     INPUT lecturerid
-
+    FILE OPEN "lecturerfile.txt" AS mainlecturerfile IN READ
+    FILE OPEN "temp.txt" AS templecturerfile in WRITE
+    WHILE NOT END OF FILE reached in mainlecturerfile DO
+        READ lecturerid, name, enrolledcourse ,contactnumber, email INTO lecturer
+        IF lecturer.lecturerid EQUALS lecturerid THEN
+            PRINT "Enter Intake Code: "
+            INPUT lecturer.enrolledcourse
+            WRITE lecturer data TO templecturerfile
+        ELSE
+            WRITE lecturer data TO templecturerfile
+        ENDIF
+    ENDWHILE
+    FILE CLOSE mainlecturerfile
+    FILE CLOSE templecturerfile
+    REMOVE FILE "lecturerfile.txt"
+    RENAME "temp.txt" TO "lecturerfile.txt"
+    PRINT "Lecturer assigned to course successfully"
 ENDFUNCTION enrollecturer
 
 FUNCTION courseMenu()
