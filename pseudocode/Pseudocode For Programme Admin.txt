@@ -49,24 +49,45 @@ FUNCTION viewstudentprofile():
     ENDWHILE
 ENDFUNCTION viewstudentprofile()
 
+
+FUNCTION checkavailabilityofcourse()
+    INTIALIZE Course AS course
+    FILE OPEN "course.txt" AS maincoursefile IN READ
+    WHILE NOT END OF FILE reached in maincoursefile DO
+        READ intakecode, module1, module2, module3, module4 ,module5 INTO course
+        IF course.intakeCode EQUALS intakeCode THEN
+            FILE CLOSE maincoursefile
+            RETURN TRUE
+        ELSE
+            FILE CLOSE maincoursefile
+            RETURN FALSE
+        ENDIF
+    ENDWWHILE
+ENDFUNCTION checkavailabilityofcourse()
+
+
 FUNCTION createcourse()
     INTIALIZE Course AS course
-    PRINT "Enter Intake Code: "
-    INPUT course.intakecode
-    PRINT "Enter Module 1: "
-    INPUT course.module1
-    PRINT "Enter Module 2: "
-    INPUT course.module2
-    PRINT "Enter Module 3: "
-    INPUT course.module3
-    PRINT "Enter Module 4: "
-    INPUT course.module4
-    PRINT "Enter Module 5: "
-    INPUT course.module5
     FILE OPEN "course.txt" AS maincoursefile IN APPEND
-    WRITE course data TO maincoursefile
-    FILE CLOSE maincoursefile
-    PRINT "Course Added successfully"
+    PRINT "Enter Intake Code: "
+    INPUT intakecode TO course
+    IF checkavailabilityofcourse(course.intakecode) EQUALS TRUE THEN
+        PRINT "Course already exist"
+    ELSE
+        PRINT "Enter Module 1: "
+        INPUT course.module1
+        PRINT "Enter Module 2: "
+        INPUT course.module2
+        PRINT "Enter Module 3: "
+        INPUT course.module3
+        PRINT "Enter Module 4: "
+        INPUT course.module4
+        PRINT "Enter Module 1: "
+        INPUT course.module5
+        WRITE course data TO maincoursefile
+        FILE CLOSE maincoursefile
+        PRINT "Course added successfully"
+    ENDIF
 ENDFUNCTION createcourse
 
 FUNCTION updateCourse()
@@ -89,21 +110,159 @@ FUNCTION updateCourse()
             INPUT course.module4
             PRINT "Enter Module 1: "
             INPUT course.module5
-            WRITE course data TO maincoursefile
+            WRITE course data TO tempcoursefile
         ELSE 
+            WRITE course data TO tempcoursefile
+        ENDIF
     ENDWHILE
+    FILE CLOSE maincoursefile
+    FILE CLOSE tempcoursefile
+    REMOVE FILE "course.txt"
+    RENAME "temp.txt" TO "course.txt"
 ENDFUNCTION updateCourse
+
+FUNCTION viewCourse()
+    INTIALIZE Course AS course
+    DECLARE intakecode AS STRING MAX 20 CHARACTER
+    FILE OPEN "course.txt" AS maincourse IN READ
+    PRINT "Please enter the intake code to view: "
+    INPUT intakecode
+    WHILE NOT END OF FILE reached in maincoursefile DO
+        READ intakecode, module1, module2, module3, module4 ,module5 INTO course
+        IF intakecode EQUALS course.intakecode THEN
+            PRINT "Intake Code: "  course.intakecode
+            PRINT "Module 1: "     course.module1
+            PRINT "Module 2: "     course.module2
+            PRINT "Module 3: "     course.module3
+            PRINT "Module 4: "     course.module4
+            PRINT "Module 5: "     course.module5
+            PRINT "Do you want to return to previous menu? (y/n): "
+            DECLARE choice AS CHARACTER
+            INPUT choice
+            IF choice EQUALS "y" THEN
+                FILE CLOSE maincoursefile
+                break
+            ENDIF
+        ENDIF
+    ENDWHILE
+ENDFUNCTION viewCourse
+
+FUNCTION courseDelete()
+    INTIALIZE Course AS course
+    FILE OPEN "course.txt" AS maincourse IN READ
+    FILE OPEN "temp.txt" AS tempcourse IN WRITE
+    DECLARE intakecode AS STRING MAX 10 CHARACTER
+    PRINT "Enter Intake Code: "
+    INPUT intakecode
+    WHILE NOT END OF FILE reached in maincoursefile DO
+        READ intakecode, module1, module2, module3, module4 ,module5 INTO course
+        IF course.intakecode EQUALS intakecode THEN
+            continue
+        ELSE
+            WRITE course data TO tempcourse
+        ENDIF
+    ENDWHILE
+    FILE CLOSE maincoursefile
+    FILE CLOSE tempcoursefile
+    REMOVE FILE "course.txt"
+    RENAME "temp.txt" TO "course.txt"
+    PRINT "Course deleted successfully"
+ENDFUNCTION courseDelete
 
 FUNCTION enrolstudent()
     DECLARE studentid AS INTEGER
     INTIALIZE studentprofile AS student
     PRINT "Enter Student ID: "
     INPUT studentid
-      
-ENDFUNCTION enrolstudent()
 
+    OPEN FILE "studentfile.txt" AS mainstudentfile IN READ
+    IF mainstudentfile IS NULL THEN
+        PRINT ERROR MESSAGE "Error opening studentfile.txt"
+        RETURN
+    ENDIF
 
+    FILE OPEN "temp.txt" AS tempstudentfile IN WRITE
+    IF tempstudentfile IS NULL THEN
+        PRINT ERROR MESSAGE "Error opening temp.txt"
+        FILE CLOSE mainstudentfile
+        return
+    ENDIF
+    
+    
+    WHILE READING DATA FROM mainstudentfile using fscanf successfully RETURNS 5 DO
+        READ studentid, name, intakecode, contactnumber, email INTO student
+        IF student.studentid EQUALS studentid THEN
+            PRINT "Enter Intake Code: "
+            INPUT student.intakecode
+            WRITE student data TO tempstudentfile
+            CALL enroltocoursemark WITH student.name ,student.intakecode , studentid
+            CALL enroltoattendance WITH student.name ,student.intakecode , studentid
+        ELSE
+            WRITE student data TO tempstudentfile
+        ENDIF
+    ENDWHILE
+    FILE CLOSE mainstudentfile
+    FILE CLOSE tempstudentfile
 
+    IF REMOVE FILE "studentfile.txt" NOT EQUALS 0 THEN
+        PRINT "Error deleting studentfile.txt"
+        RETURN
+    ENDIF
+
+    IF RENAME "temp.txt" TO "studentfile.txt" NOT EQUALS 0 THEN
+        PRINT "Error renaming temp.txt to studentfile.txt"
+        RETURN
+    ENDIF
+
+    PRINT "Student enrolled successfully"
+ENDFUNCTION enrolstudent
+
+FUNCTION enroltocoursemark()
+    PARAMETER name AS STRING. intakecode AS STRING. studentid AS INTEGER
+    INTIALIZE Course AS course
+    FILE OPEN "course.txt" AS maincoursefile IN READ
+    IF maincoursefile IS NULL THEN
+        PRINT ERROR MESSAGE "Error opening course.txt"
+        RETURN
+    ENDIF
+
+    FILE OPEN "coursemark.txt" AS coursemarkfile IN APPEND
+    IF coursemarkfile IS NULL THEN
+        PRINT ERROR MESSAGE "Error opening coursemark.txt"
+        FILE CLOSE maincoursefile
+        RETURN
+    ENDIF
+
+    WHILE READING DATA FROM maincoursefile using fscanf successfully RETURNS 6 DO
+    READ intakecode, module1, module2, module3, module4 ,module5 INTO course
+        IF course.intakecode EQUALS intakecode THEN
+            APPEND studentid, name , course.module1, course.module2, course.module3, course.module4, course.module5 ,0.0, 0.0, 0.0, 0.0, 0.0 INTO coursemarkfile
+        ENDIF
+    ENDWHILE
+
+    FILE CLOSE maincoursefile
+    FILE CLOSE coursemarkfile
+ENDFUNCTION enroltocoursemark
+
+FUNCTION enroltoattendance()
+    PARAMETER name AS STRING, studentid AS INTEGER, intakecode AS STRING
+    INTIALIZE studentLect AS studentlect
+    INTIALIZE Course AS course
+    DECLARE i AS INTEGER
+    FILE OPEN "attendance.txt" AS attendancefile IN APPEND
+    FILE OPEN "course.txt" AS maincoursefile IN READ
+    WHILE READING DATA FROM maincoursefile using fscanf successfully RETURNS 6 DO
+        READ intakecode, module1, module2, module3, module4 ,module5 INTO course
+    ENDWHILE
+ENDFUNCTION enroltoattendance
+
+FUNCTION enrollecturer
+    INTIALIZE lecturerprofile AS lecturer
+    DECLARE lecturerid AS INTEGER
+    PRINT "Enter Lectuer ID to assign course: "
+    INPUT lecturerid
+
+ENDFUNCTION enrollecturer
 
 FUNCTION courseMenu()
     DECLARE choice AS INTEGER
