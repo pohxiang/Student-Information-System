@@ -253,7 +253,21 @@ FUNCTION enroltoattendance()
     FILE OPEN "course.txt" AS maincoursefile IN READ
     WHILE READING DATA FROM maincoursefile using fscanf successfully RETURNS 6 DO
         READ intakecode, module1, module2, module3, module4 ,module5 INTO course
+        IF course.intakeCode EQUALS intakecode THEN
+            DECLARE modules array AS CHARACTER CONTAINS course modules data
+            LOOP FROM 0 to 5 STEP 1
+                COPY name TO studentlect.name
+                SET studentid TO studentlect.id
+                COPY "N/A" TO studenlect.date
+                COPY modules array TO studentlect.modules array
+                SET studenlect.attendance TO 0
+                SET studenlect.totalClass TO 0
+                WRITE studenlect data TO attendancefile
+            ENDLOOP 
+        ENDIF
     ENDWHILE
+    FILE CLOSE maincoursefile
+    FILE CLOSE attendancefile
 ENDFUNCTION enroltoattendance
 
 FUNCTION enrollecturer
