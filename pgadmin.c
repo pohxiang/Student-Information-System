@@ -115,13 +115,12 @@ void createCourse(){
 
 void updateCourse(){
   struct Course course;
+  char intakecode[20];
   FILE *maincoursefile = fopen("course.txt", "r");
   FILE *tempcoursefile = fopen("temp.txt", "w");
-  char intakeCode[10];
-  printf("Enter Intake Code: ");
-  scanf("%s", intakeCode);
+  printf("Enter Intake Code: ");scanf("%s", intakecode);
   while (fscanf(maincoursefile, "%s %s %s %s %s %s\n", course.intakeCode, course.module1, course.module2, course.module3, course.module4, course.module5) != EOF){
-    if (strcmp(course.intakeCode, intakeCode) == 0){
+    if (strcmp(course.intakeCode, intakecode) == 0){
       printf("Enter Module 1: ");scanf("%s", course.module1);
       printf("Enter Module 2: ");scanf("%s", course.module2);
       printf("Enter Module 3: ");scanf("%s", course.module3);
@@ -137,6 +136,7 @@ void updateCourse(){
   fclose(tempcoursefile);
   remove("course.txt");
   rename("temp.txt", "course.txt");
+  printf("Course updated successfully\n");
 }
 
 void viewCourse(){

@@ -1,2 +1,2 @@
-1 student1 APD6969 6969 student1@email.com
-5 student2 APD6969 6969 student2@email.com
+1 student1 APD1F2307CS(IS) N/A student1@email.com
+5 student2 APD6969 N/A student2@email.com

@@ -53,12 +53,12 @@ struct StudentLect
 
 struct Course
 {
-    char intakeCode[50];
-    char module1[50];
-    char module2[50];
-    char module3[50];
-    char module4[50];
-    char module5[50];
+    char intakeCode[20];
+    char module1[20];
+    char module2[20];
+    char module3[20];
+    char module4[20];
+    char module5[20];
 };
 
 struct AttendanceRecord {
