@@ -175,7 +175,7 @@ void courseDelete(){
   struct Course course;
   FILE *maincoursefile = fopen("course.txt", "r");
   FILE *tempcoursefile = fopen("temp.txt", "w");
-  char intakeCode[10];
+  char intakeCode[20];
   printf("Enter Intake Code: ");
   scanf("%s", intakeCode);
   while (fscanf(maincoursefile, "%s %s %s %s %s %s\n", course.intakeCode, course.module1, course.module2, course.module3, course.module4, course.module5) != EOF){
