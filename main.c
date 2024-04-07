@@ -26,6 +26,7 @@
 #define fileCourseMark "coursemark.txt"
 #define fileGradeDefinition "gradeDefinition.txt"
 
+
 // Clear Screen
 //void clearscreen(){printf("Hit ");}
 void clearscreen(){printf("\033[2J\033[1;1H");}
@@ -60,6 +61,9 @@ bool filecheck(){
     fclose(credfile);fclose(coursefile);fclose(studentfile);fclose(attendancefile);fclose(lecturerfile);fclose(coursemarkfile);fclose(gradedefinitionfile);
     return is_exist; 
 }
+
+
+
 
 // Login Function
 int login(){

@@ -59,7 +59,7 @@ void viewstudentprofile(){
   while (fscanf(mainstudentfile, "%d %s %s %s %s\n", &studentprofile.studentid, studentprofile.name, studentprofile.intakecode, studentprofile.contactnumber, studentprofile.email) != EOF){
     if (studentprofile.studentid == studentid){
       printf("\n+----------------------------------------------+\n");
-      printf("|               Student Profile                  |\n");
+      printf("|               Student Profile                |\n");
       printf("+----------------------------------------------+\n");
       printf("| Name           : %-28s|\n", studentprofile.name);
       printf("| Student ID     : %-28d|\n", studentprofile.studentid);
