@@ -18,11 +18,8 @@
 #define fileCourseMark "coursemark.txt"
 #define fileGradeDefinition "gradeDefinition.txt"
 
-
-// Clear Screen
-void clearscreen(){printf("Hit ");}
-//oid clearscreen(){printf("\033[2J\033[1;1H");}
-//void clearscreen(){system("clear");}
+//clearscreen
+void clearscreen(){printf("\033[2J\033[1;1H");}
 
 // File Checking
 bool filecheck(){
@@ -31,7 +28,7 @@ bool filecheck(){
     FILE *studentfile = fopen(fileStudent, "r");
     FILE *attendancefile = fopen(fileAttendance, "r");
     FILE *lecturerfile = fopen(fileLecturer,"r");
-    FILE *coursemarkfile = fopen(fileCourseMark,"r");\
+    FILE *coursemarkfile = fopen(fileCourseMark,"r");
     FILE *gradedefinitionfile = fopen(fileGradeDefinition,"r");
     bool is_exist = false;
     if (credfile == NULL){printf("Users file not found\n"); printf("Creating new file\n");credfile = fopen(fileCredentials, "w");fclose(credfile);}

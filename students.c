@@ -43,6 +43,7 @@ void viewprofileStudent(int id) {
 
 void menustudentupdatedata(int id) {
     int choice;
+    clearscreen();
     printf("+----------------------------------------------+\n");
     printf("|               Update Data                    |\n");
     printf("+----------------------------------------------+\n");
@@ -130,6 +131,7 @@ void viewenrolledcoursestudent(int id){
         if (id == studentprofile.studentid) {
             while (fscanf(coursefile, "%s%s%s%s%s%s", Course.intakeCode, Course.module1, Course.module2, Course.module3, Course.module4, Course.module5) != EOF) {
                 if (strcmp(studentprofile.intakecode, Course.intakeCode) == 0) {
+                    clearscreen();
                     printf("\n+----------------------------------------------+\n");
                     printf("| Enrolled Courses                             |\n");
                     printf("+----------------------------------------------+\n");
@@ -151,8 +153,16 @@ void viewenrolledcoursestudent(int id){
 }
 
 
-
-
+void convertgradetogpa(char grade, float *gpa){
+    switch (grade) {
+        case 'A': *gpa = 4.0; break;
+        case 'B': *gpa = 3.0; break;
+        case 'C': *gpa = 2.0; break;
+        case 'D': *gpa = 1.0; break;
+        case 'F': *gpa = 0.0; break;
+        default: *gpa = -1.0; break;
+    }
+}
 
 void viewselfresult(int id){
     struct StudentLect studentLect;
@@ -167,25 +177,44 @@ void viewselfresult(int id){
         printf("Error opening files.\n");
         return;
     }
-
-    // Convert the marks in coursemark.txt to grade
     while (fscanf(studentfile, "%d%s%s%s%s", &studentprofile.studentid, studentprofile.name, studentprofile.intakecode, studentprofile.contactnumber, studentprofile.email) != EOF) {
         if (id == studentprofile.studentid) {
-            while (fscanf(coursemarkfile, "%d %s %s %s %s %s %s %f %f %f %f %f", &studentLect.id, studentLect.name, studentLect.modules[1],studentLect.modules[2], studentLect.modules[3], studentLect.modules[4], studentLect.modules[5], &studentLect.marks[1], &studentLect.marks[2], &studentLect.marks[3], &studentLect.marks[4], &studentLect.marks[5]) != EOF) {
+            while (fscanf(coursemarkfile, "%d %s %s %s %s %s %s %s %f %f %f %f %f", &studentLect.id, studentLect.name, studentprofile.intakecode, studentLect.modules[0],studentLect.modules[1], studentLect.modules[2], studentLect.modules[3], studentLect.modules[4], &studentLect.marks[0], &studentLect.marks[1], &studentLect.marks[2], &studentLect.marks[3], &studentLect.marks[4]) != EOF) {
                 if (id == studentLect.id) {
-                    for (int i = 0; i < 5; i++){
-                        // copy it into marktograde struct
-                        marktograde.grade[i] = calculate_grade(studentLect.marks[i+1]);
-                        
+                    for (int i = 0; i < num_modules; i++){
+                        marktograde.grade[i] = calculate_grade(studentLect.marks[i]);
+                        convertgradetogpa(marktograde.grade[i], &studentLect.marks[i]);
                     }
-                    marktograde.overallcgpa = calculate_cgpa(studentLect.marks, num_modules);
+                    marktograde.overallcgpa = 0;
+                    for (int i = 0; i < num_modules; i++) {
+                        marktograde.overallcgpa += studentLect.marks[i];
+                    }
+                    marktograde.overallcgpa /= num_modules;
                 }
-            }            
+                clearscreen();
+                printf("\n+----------------------------------------------+\n");
+                printf("|               Results                        |\n");
+                printf("+----------------------------------------------+\n");
+                printf("+----------------------------------------------+\n");
+                    for (int j = 0; j < num_modules; j++) {
+                        printf("| Module %d       : %-28s|\n", j + 1, studentLect.modules[j]);
+                        printf("| Grade          : %-28c|\n", marktograde.grade[j]);
+                    }
+                printf("| Overall CGPA   : %-28.2f|\n", marktograde.overallcgpa);
+                printf("+----------------------------------------------+\n");
+                printf("Do you want to return to the previous menu? (y/n): ");
+                char choice;
+                if (scanf(" %c", &choice) != 1) {printf("Invalid choice. Please try again.\n\n");}
+                else if (choice == 'y') {clearscreen();viewprofileStudent(id);}
+                else if (choice == 'n') {clearscreen();viewselfresult(id);}          
+            }  break;
         }
-    }
-
-
+    }fclose(coursemarkfile);fclose(studentfile);
 }
+
+
+
+
 
 void viewattendance(int id){
     FILE *attendancefile = fopen("Attendance.txt", "r");

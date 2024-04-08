@@ -76,6 +76,7 @@ struct AttendanceRecord {
 
 struct marktograde{
   char grade[5];
+  float gpa[5];
   float overallcgpa;
 };
 
@@ -120,6 +121,9 @@ typedef struct {
 
 
 // Function Prototype
+// clear screen
+
+
 //Lecture
 void printLecturerMenu(struct StudentLect students[], int studentCount);
 void readAttendance(struct StudentLect students[], int *studentCount);
@@ -155,11 +159,11 @@ void enroltoattendance(char *name, int studentid, char * intakecode);
 
 
 //main 
-void clearscreen();
 bool filecheck();
 int login();
 int menuProgrammeAdmin();
 void loginmenu();
+void clearscreen();
 
 // Profile Manage
 void studentprofilecreate(int id, char name[]);
