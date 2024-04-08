@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-
+#define MAX_PASSWORD_LENGTH 20
 #define Num_courses 5
 
 struct logindetails{
@@ -91,9 +91,7 @@ typedef enum {
     PROGRAMME_ADMIN
 } UserType;
 
-// Structure to hold user data
 
-#define MAX_PASSWORD_LENGTH 20
 
 typedef struct {
     int id;
@@ -121,7 +119,6 @@ typedef struct {
 
 
 // Function Prototype
-// clear screen
 
 
 //Lecture
