@@ -1,8 +1,6 @@
-#include "systemadmin.h"
-#include "profilemanage.h"
-#include "main.h"
+#include "structs.h"
 #define coursemarkfile "coursemark.txt"
-
+#define MAXSIZE 100
 User users[MAXSIZE];
 int n = 0;
 

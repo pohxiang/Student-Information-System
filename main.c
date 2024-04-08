@@ -1,13 +1,5 @@
-//  library
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <stdbool.h>
-#include <unistd.h>
-
 //  header files
 #include "structs.h"
-#include "systemadmin.h"
 
 //  limits
 #define MAXSIZE 100
@@ -28,11 +20,9 @@
 
 
 // Clear Screen
-//void clearscreen(){printf("Hit ");}
-void clearscreen(){printf("\033[2J\033[1;1H");}
+void clearscreen(){printf("Hit ");}
+//oid clearscreen(){printf("\033[2J\033[1;1H");}
 //void clearscreen(){system("clear");}
-
-void displayMainMenu(void);
 
 // File Checking
 bool filecheck(){

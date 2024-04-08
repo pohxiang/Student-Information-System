@@ -1,26 +1,9 @@
-#include "main.h"
 #include "structs.h"
-#include <stdio.h>
-#include <stdbool.h>
-#include <stdlib.h>
-#include <string.h>
 #define maxintakecode 30
 #define maxcourseperintake 10
 #define maxmodulename 100
 #define courseinfosize 1000
 
-// Function Prototype
-int menuProgrammeAdmin();
-void createCourse();
-void viewCourse();
-void courseDelete();
-int courseMenu();
-void enrolstudent();
-void enrollecturer();
-void enroltocoursemark(char *name, char *intakecode, int studentid);
-void viewstudentprofile();
-bool checkavailabilityofcourse(char *intakecode);
-void enroltoattendance(char *name, int studentid, char * intakecode);
 
 
 

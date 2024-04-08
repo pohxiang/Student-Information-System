@@ -1,6 +1,4 @@
-#include "profilemanage.h"
 #include "structs.h"
-#include "systemadmin.h"
 #define studentinfofile "studentfile.txt"
 #define lecturerinfofile "lecturerfile.txt"
 
