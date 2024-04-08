@@ -174,6 +174,8 @@ void viewenrolledcoursestudent(int id){
 void viewselfresult(int id){
     struct StudentLect studentLect;
     struct studentprofile studentprofile;
+    struct marktograde marktograde;
+    int i;
     FILE *coursemarkfile = fopen("coursemark.txt", "r");
     FILE *studentfile = fopen("studentfile.txt", "r");
 
@@ -183,6 +185,36 @@ void viewselfresult(int id){
     }
 
     // Convert the marks in coursemark.txt to grade
+    while (fscanf(studentfile, "%d%s%s%s%s", &studentprofile.studentid, studentprofile.name, studentprofile.intakecode, studentprofile.contactnumber, studentprofile.email) != EOF) {
+        if (id == studentprofile.studentid) {
+            while (fscanf(coursemarkfile, "%d %s %s %s %s %s %s %f %f %f %f %f", &studentLect.id, studentLect.name, studentLect.modules[1],studentLect.modules[2], studentLect.modules[3], studentLect.modules[4], studentLect.modules[5], &studentLect.marks[1], &studentLect.marks[2], &studentLect.marks[3], &studentLect.marks[4], &studentLect.marks[5]) != EOF) {
+                if (id == studentLect.id) {
+                    for (int i = 0; i < 5; i++){
+                        // copy it into marktograde struct
+                        marktograde.grade[i] = calculate_grade(studentLect.marks[i+1]);
+                        marktograde.overallcgpa = calculate_cgpa(marktograde.grade[i], 5);
+                    }
+                }
+            }            
+        }
+    }
+
+    printf("\n+----------------------------------------------+\n");
+    printf("|               Results                        |\n");
+    printf("+----------------------------------------------+\n");
+    printf("| Module 1       : %-28s|\n", studentLect.modules[1]);
+    printf("| Grade          : %-28s|\n", marktograde.grade[0]);
+    printf("| Module 2       : %-28s|\n", studentLect.modules[2]);
+    printf("| Grade          : %-28s|\n", marktograde.grade[1]);
+    printf("| Module 3       : %-28s|\n", studentLect.modules[3]);
+    printf("| Grade          : %-28s|\n", marktograde.grade[2]);
+    printf("| Module 4       : %-28s|\n", studentLect.modules[4]);
+    printf("| Grade          : %-28s|\n", marktograde.grade[3]);
+    printf("| Module 5       : %-28s|\n", studentLect.modules[5]);
+    printf("| Grade          : %-28s|\n", marktograde.grade[4]);
+    printf("| Overall CGPA   : %-28.2f|\n", marktograde.overallcgpa);
+    printf("+----------------------------------------------+\n");
+
 }
 
 void viewattendance(int id){

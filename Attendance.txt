@@ -1,6 +1,0 @@
-1 student1 2024-02-21 English 5 5
-1 student1 N/A English 0 0
-1 student1 N/A Malay 0 0
-1 student1 N/A Chinese 0 0
-1 student1 N/A History 0 0
-1 student1 N/A Math 0 0

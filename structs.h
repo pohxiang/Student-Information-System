@@ -68,6 +68,10 @@ struct AttendanceRecord {
         int totalClass;
     };
 
+struct marktograde{
+  char grade[5];
+  float overallcgpa;
+};
 
 
 #endif
