@@ -165,7 +165,7 @@ ENDFUNCTION updatemailstu
 
 FUNTION viewenrolledcoursestudent()
     INTIALIZE studentprofile AS studentprofile
-    INTIALIZE Course as Course
+    INTIALIZE Course AS Course
     FILE OPEN "studentfile.txt" AS studentfile IN READ
     FILE OPEN "course.txt" AS coursefile IN READ
 
@@ -199,7 +199,51 @@ FUNTION viewenrolledcoursestudent()
         ENDIF
 ENDFUNCTION viewenrolledcoursestudent
 
+FUNCTION convertgradetogpa 
+    PARAMETER grade AS CHARACTER, *gpa AS float
+    SWITCH (grade)
+        CASE A THEN SET *gpa TO 4.0
+        CASE B THEN SET *gpa TO 3.0
+        CASE C THEN SET *gpa TO 2.0
+        CASE D THEN SET *gpa TO 1.0
+        CASE F THEN SET *gpa TO 0.0
+        DEFAULT SET *gpa TO 0.0
+    ENDSWITCH
+ENDFUNCTION convertgradetogpa
+
+
 FUNCTION viewselfresult
+    INTIALIZE studentLect AS studentLect
+    INTIALIZE studentprofile AS studentprofile
+    INTIALIZE marktograde AS marktograde
+    DECLARE num_modules AS INTEGER SET TO 5
+    DECLARE i AS INTEGER
+    FILE OPEN "coursemark.txt" AS coursemarkfile IN READ
+    FILE OPEN "studentfile.txt" AS studentfile IN READ
+
+    IF coursemarkfile IS NOT FOUND OR studentfile IS NOT FOUND THEN
+        PRINT "Error opening file"
+        RETURN
+    ENDIF
+
+    WHILE NOT END OF FILE reached in studentfile DO
+        READ studentid, name, intakecode, contactnumber, email TO studentprofile
+        IF id EQUALS studentprofile.studentid THEN
+            WHILE NOT END OF FILE reached in coursemarkfile DO
+                READ studentid, module1, module2, module3, module4, module5 TO studentLect
+                IF id EQUALS studentLect.studentid THEN
+                    LOOP i FROM 0 TO num_modules STEP 1
+                        SET grade ARRAY IN marktograde TO CALL calculate_grade() WITH marks ARRAY IN studentLect STRUCT
+                        CALL convertgradetogpa(marktograde.grade[i], &studentLect.marks[i])
+                    ENDLOOP
+                    SET overallcgpa IN marktograde struct TO 0
+                    LOOP i FROM 0 TO num_modules STEP 1
+                        SET overallcgpa IN marktograde TO overallcgpa IN marktograde + studentLect.marks[i]
+                    ENDLOOP
+                    SET overallcgpa IN marktograde TO overallcgpa IN marktograde / num_modules
+                ENDIF
+            ENDWHILE
+        ENDIF
 ENDFUNCTION viewselfresult
 
 FUNCTION viewattendance

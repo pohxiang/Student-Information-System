@@ -160,7 +160,7 @@ void convertgradetogpa(char grade, float *gpa){
         case 'C': *gpa = 2.0; break;
         case 'D': *gpa = 1.0; break;
         case 'F': *gpa = 0.0; break;
-        default: *gpa = -1.0; break;
+        default: *gpa = 0.0; break;
     }
 }
 
