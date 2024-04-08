@@ -182,42 +182,7 @@ void viewselfresult(int id){
         return;
     }
 
-    while (fscanf(studentfile, "%d%s%s%s%s", &studentprofile.studentid, studentprofile.name, studentprofile.intakecode, studentprofile.contactnumber, studentprofile.email) != EOF) {
-        if (id == studentprofile.studentid) {
-            while (fscanf(coursemarkfile, "%d %s %s %s %s %s %s %f %f %f %f %f ", &studentLect.id,studentLect.name,studentLect.modules[0], studentLect.modules[1], studentLect.modules[2],studentLect.modules[3],studentLect.modules[4], &studentLect.marks[0], &studentLect.marks[1],&studentLect.marks[2], &studentLect.marks[3], &studentLect.marks[4]) == 12){
-                printf("\n+----------------------------------------------+\n");
-                printf("|               Results                        |");
-                printf("\n+----------------------------------------------+\n");
-                printf("| Module 1       : %-28s|\n", studentLect.modules[0]);
-                printf("| Marks          : %-28.2f|\n", studentLect.marks[0]);
-                printf("| Module 2       : %-28s|\n", studentLect.modules[1]);
-                printf("| Marks          : %-28.2f|\n", studentLect.marks[1]);
-                printf("| Module 3       : %-28s|\n", studentLect.modules[2]);
-                printf("| Marks          : %-28.2f|\n", studentLect.marks[2]);
-                printf("| Module 4       : %-28s|\n", studentLect.modules[3]);
-                printf("| Marks          : %-28.2f|\n", studentLect.marks[3]);
-                printf("| Module 5       : %-28s|\n", studentLect.modules[4]);
-                printf("| Marks          : %-28.2f|\n", studentLect.marks[4]);
-                //printf("| Overall CGPA   : %-28.2f|\n", studentLect.cgpa);
-                printf("+----------------------------------------------+\n");
-
-                printf("Do you want to return to previous menu? (y/n): ");
-                char choice;
-                if (scanf(" %c", &choice) != 1) {
-                    printf("Invalid choice. Please try again.\n\n");
-                }
-                else if (choice == 'y') {
-                    clearscreen();
-                    viewprofileStudent(id);
-                }
-                else if (choice == 'n') {
-                    viewselfresult(id);
-                }
-
-            }
-                    
-        }
-    }fclose(coursemarkfile);fclose(studentfile);
+    // Convert the marks in coursemark.txt to grade
 }
 
 void viewattendance(int id){
