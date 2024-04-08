@@ -13,7 +13,7 @@ struct logindetails{
 struct studentprofile{
   char name[100];
   char intakecode[50];
-  char contactnumber[100];
+  char contactnumber[45];
   char email[100];
   int studentid;
 };
