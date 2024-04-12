@@ -21,6 +21,7 @@
 //clearscreen
 void clearscreen(){printf("\033[2J\033[1;1H");}
 
+
 // File Checking
 bool filecheck(){
     FILE *credfile = fopen(fileCredentials, "r");
@@ -115,7 +116,6 @@ int login(){
 void loginmenu() {
     int choice;
     while (1){
-        clearscreen();
         printf("===============================================\n");
         printf("|            STUDENT INFORMATION SYSTEM       |\n");
         printf("===============================================\n");
