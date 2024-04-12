@@ -245,7 +245,7 @@ void enroltocoursemark(char *name, char *intakecode, int studentid){
 
   while (fscanf(maincoursefile, "%s %s %s %s %s %s\n", course.intakeCode, course.module1, course.module2, course.module3, course.module4, course.module5) == 6){
     if (strcmp(course.intakeCode, intakecode) == 0){
-      fprintf(coursemarkfile, "%d %s %s %s %s %s %s %s %.2f %.2f %.2f %.2f %.2f\n", studentid, name, course.intakeCode, course.module1, course.module2, course.module3, course.module4, course.module5, 0.0, 0.0, 0.0, 0.0, 0.0);
+      fprintf(coursemarkfile, "%d %s %s %s  %s %s %s %.2f %.2f %.2f %.2f %.2f\n", studentid, name, course.module1, course.module2, course.module3, course.module4, course.module5, 0.0, 0.0, 0.0, 0.0, 0.0);
     }
   }
 

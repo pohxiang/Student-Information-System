@@ -1,1 +1,1 @@
-1 student1 APD1F2307CS(IS) English Malay Chinese History Math 70.00 70.00 70.00 70.00 70.00
+1 student1 English Malay Chinese History Math 70.00 70.00 70.00 70.00 70.00
