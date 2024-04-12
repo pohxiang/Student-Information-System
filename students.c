@@ -30,6 +30,7 @@ void viewprofileStudent(int id) {
                 while (getchar() != '\n');
                 continue;
             }
+            fclose(studentfile);
             switch (choice){
                 case 1:clearscreen();viewattendance(id);break;
                 case 2:clearscreen();viewenrolledcoursestudent(id);break;
@@ -179,7 +180,7 @@ void viewselfresult(int id){
     }
     while (fscanf(studentfile, "%d%s%s%s%s", &studentprofile.studentid, studentprofile.name, studentprofile.intakecode, studentprofile.contactnumber, studentprofile.email) != EOF) {
         if (id == studentprofile.studentid) {
-            while (fscanf(coursemarkfile, "%d %s %s %s %s %s %s %s %f %f %f %f %f", &studentLect.id, studentLect.name, studentprofile.intakecode, studentLect.modules[0],studentLect.modules[1], studentLect.modules[2], studentLect.modules[3], studentLect.modules[4], &studentLect.marks[0], &studentLect.marks[1], &studentLect.marks[2], &studentLect.marks[3], &studentLect.marks[4]) != EOF) {
+            while (fscanf(coursemarkfile, "%d %s %s %s %s %s  %s %f %f %f %f %f", &studentLect.id, studentLect.name, studentLect.modules[0],studentLect.modules[1], studentLect.modules[2], studentLect.modules[3], studentLect.modules[4], &studentLect.marks[0], &studentLect.marks[1], &studentLect.marks[2], &studentLect.marks[3], &studentLect.marks[4]) != EOF) {
                 if (id == studentLect.id) {
                     for (int i = 0; i < num_modules; i++){
                         marktograde.grade[i] = calculate_grade(studentLect.marks[i]);
