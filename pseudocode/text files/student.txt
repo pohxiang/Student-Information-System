@@ -23,6 +23,7 @@ FUNCTION viewprofileStudent
                 CLEAR INPUT BUFFER
                 continue
             ENDIF
+            FILE CLOSE studentfile
             SWITCH(choice) 
             case 1 THEN
                 clearscreen()
@@ -30,7 +31,7 @@ FUNCTION viewprofileStudent
                 break
             case 2 THEN
                 clearscreen()
-                iewenrolledcoursestudent(id)
+                viewenrolledcoursestudent(id)
                 break
             case 3 THEN
                 clearscreen()

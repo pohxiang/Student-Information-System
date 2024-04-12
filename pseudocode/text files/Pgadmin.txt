@@ -4,11 +4,9 @@ FUNCTION menuProgrammeAdmin():
     DECLARE choice AS INTEGER
     WHILE True:
         PRINT "Programme Admin Menu"
-        PRINT "1. Add Programme"
-        PRINT "2. Update Programme"
-        PRINT "3. Delete Programme"
-        PRINT "4. View Programme"
-        PRINT "5. Exit"
+        PRINT "1. View Student Profile"
+        PRINT "2. Course Management & Enrolment"
+        PRINT "3. Exit"
         PRINT "Enter your choice: "
         INPUT choice
         SWITCH(choice) 
