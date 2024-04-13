@@ -41,7 +41,7 @@ void displayMainMenu() {
             changeGradeDefinition();clearscreen();loginmenu();
 
         case 6:
-            studentgeneratereport();clearscreen();loginmenu();
+            studentgeneratereport();loginmenu();
 
         case 7:
             printf("Goodbye!\n");clearscreen();loginmenu();break;

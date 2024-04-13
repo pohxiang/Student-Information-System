@@ -126,7 +126,6 @@ void loginmenu() {
         printf("Enter your choice: ");
         if (scanf("%d", &choice) != 1) {
             printf("Invalid choice. Please try again.\n\n");
-            clearscreen();
             while (getchar() != '\n');
         } else {
             switch (choice) {
