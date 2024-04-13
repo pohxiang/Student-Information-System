@@ -19,6 +19,7 @@
 #define fileGradeDefinition "gradeDefinition.txt"
 
 //clearscreen
+//void clearscreen(){printf("Hi");}
 void clearscreen(){printf("\033[2J\033[1;1H");}
 
 
@@ -108,7 +109,7 @@ int login(){
                     menuProgrammeAdmin();break;}
                 
 
-                return 0;}}}fclose(usercred);printf("Login Failed");return 0;}
+                return 0;}}}fclose(usercred);printf("Login Failed\n");return 0;}
 
 
 
@@ -140,7 +141,6 @@ void loginmenu() {
 
 
 int main(){
-    clearscreen();
     filecheck();
     if (filecheck() == false){printf("File not found corrupted\n");}
     loginmenu();
