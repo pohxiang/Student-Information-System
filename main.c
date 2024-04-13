@@ -56,10 +56,10 @@ bool filecheck(){
 
 // Login Function
 int login(){
-    struct Student students[100];
+    struct Student students[15];
     struct logindetails logindetails;
     FILE *usercred = fopen(fileCredentials, "r");
-    int i=0;int studentcount = 0;
+    int i=0;
     // Clear buffer
     while (getchar() != '\n');
 
@@ -77,7 +77,6 @@ int login(){
     while (fgets(logindetails.line, sizeof(logindetails.line), usercred)) {
         char *values[4];
         char *token = strtok(logindetails.line, " ");
-        i = 0;
         while (token != NULL && i < 4) {
             values[i++] = token;
             token = strtok(NULL, " ");
@@ -109,7 +108,11 @@ int login(){
                     menuProgrammeAdmin();break;}
                 
 
-                return 0;}}}fclose(usercred);printf("Login Failed\n");return 0;}
+                return 0;
+                }
+            }
+        }fclose(usercred);printf("Login Failed\n");return 0;
+}
 
 
 

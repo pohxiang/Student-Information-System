@@ -1,0 +1,65 @@
+FUNCTION login()
+    INITIALLIZE Student AS students MAX 15
+    INITIALLIZE logindetails AS logindetails
+    FILE OPEN "users.txt" AS usercred IN READ
+    DECLARE i AS INTEGER VALUE SET 0
+    CLEAR INPUT BUFFER
+    IF FILE "users.txt" NOT FOUND THEN 
+        DISPLAY "File not found"
+        RETURN
+    ENDIF
+    PRINT ("UserID: ")
+    INPUT logindetails.username
+    PRINT ("Password: ")
+    INPUT logindetails.password
+    IF STRING COMPARE logindetails.username EQUALS secretusername AND logindetails.password EQUALS secretpassword THEN
+        CALL clearscreen()
+        DISPLAY "Bypass to system admin menu"
+        CALL displayMainMenu()
+        FILE CLOSE usercred
+        RETURN 0
+    ENDIF
+
+    WHILE READING line FROM usercred DO
+        DECLARE values AS CHARACTER WITH MAX SIZE OF 4
+        DECLARE token AS STRINGTOKEN WITH space AS delimiter FOR logindetails.line
+        WHILE token NOT NULL AND LESS THAN 4 DO
+            SET token AS values AS ARRAY WITH INCREMENT OF 1
+            SET token TO STRINGTOKEN WITH space AS delimiter 
+        ENDFWHILE
+        IF i EQUALS 4 THEN
+            DECLARE storedid AS values[0]
+            DECLARE storedpass AS values[2]
+            DECLARE storedtype AS values[3]
+
+            IF STRINGCOMPARE logindetails.username EQUALS storedid NAD logindetails.password EQUALS storedpass THEN
+                CALL clearscreen
+                SET logindetails.type TO storedtype WHERE ASCII TO INTEGER
+                DECLARE id AS INT SET logindetails.username WHERE ASCII TO INTEGER
+                FILE CLOSE usercred
+                SWITHC(logindetails.type)
+                    CASE 0 THEN
+                        CALL viewprofileStudent(id)
+                        BREAK
+                    CASE 1 THEN
+                        CALL displayMainMenu()
+                        BREAK
+                    CASE 2 THEN
+                        DECLARE CONSTANT CHARACTER filename TO fileCourseMark
+                        INITIALLIZE StudentLect AS students ARRAY MAX SIZE 100
+                        DECLARE studentcount AS INTEGER AND SET TO 0
+                        DECLARE choice AS INTEGER AND SET TO 0
+                        CALL printLecturerMenu(students,studentcount)
+                        BREAK
+                    CASE 3 THEN
+                        CALL menuProgrammeAdmi()
+                        BREAK
+                ENDSWITCH
+                RETURN 0
+            ENDIF
+        ENDIF
+    ENDWHILE
+    FILE CLOSE usercred
+    DISPLAY "Login Failed"
+    RETURN 0
+ENDFUNCTION login
